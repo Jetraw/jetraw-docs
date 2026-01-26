@@ -1,0 +1,46 @@
+Initialization and License Setup
+=================================
+
+This example demonstrates how to initialize the Jetraw TIFF library and set up the
+license key.
+
+Before using any Jetraw TIFF functions, you must initialize the library by calling
+``jetraw_tiff_init()``. This registers Jetraw compression for libtiff.
+
+License Setup
+-------------
+
+The license can be set in two ways:
+
+1. **Default location**: Pass an empty string to ``jetraw_tiff_set_license("")``, and
+   Jetraw will look for the license in the default location (see :doc:`../installation`).
+
+2. **Manual key**: Provide the license key directly as a string.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "jetraw_tiff/jetraw_tiff.h"
+
+   int main() {
+       // Initialize the Jetraw TIFF library
+       jetraw_tiff_init();
+
+       // Option 1: Use default license location
+       jetraw_tiff_set_license("");
+
+       // Option 2: Provide license key manually
+       // jetraw_tiff_set_license("ABC_DEF_XYZ_BLA_BLA");
+
+       // ... rest of your code ...
+   }
+
+See Also
+--------
+
+- :c:func:`jetraw_tiff_init`
+- :c:func:`jetraw_tiff_set_license`
+- :doc:`../installation` for license file locations
+

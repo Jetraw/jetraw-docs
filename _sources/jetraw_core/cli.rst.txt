@@ -1,0 +1,251 @@
+Command Line Interface
+========================
+
+Jetraw provides two command-line tools for working with images:
+
+- **jetraw**: Compresses and decompresses prepared images
+- **dpcore**: Prepares raw images for compression and manages calibration identifiers
+
+Both tools support batch processing of multiple files and directories, with options for
+recursive processing, parallel execution, and detailed logging.
+
+jetraw
+------
+
+The ``jetraw`` command-line tool compresses and decompresses images that have been
+prepared using ``dpcore``. It operates on TIFF files and can process multiple files
+or entire directories.
+
+Commands
+~~~~~~~~
+
+compress
+^^^^^^^^
+
+Compress prepared TIFF images.
+
+.. code-block:: console
+
+   jetraw compress [optional arguments] -d <destination> <sources> ...
+
+decompress
+^^^^^^^^^^
+
+Decompress Jetraw-compressed TIFF images.
+
+.. code-block:: console
+
+   jetraw decompress [optional arguments] -d <destination> <sources> ...
+
+Required Options
+~~~~~~~~~~~~~~~
+
+-d <destination>, --destination <destination>
+   Destination directory where processed files are written. The directory will be
+   created if it does not exist.
+
+<sources>
+   TIFF files or directories to compress or decompress. Multiple sources can be
+   specified. When a directory is specified, only TIFF files (``.tif`` or ``.tiff``
+   extensions) within that directory are processed, unless ``--recursive`` is used.
+
+Optional Options
+~~~~~~~~~~~~~~~~
+
+File Operations
+"""""""""""""""
+
+-r, --recursive
+   Include subdirectories recursively when processing directories.
+
+--overwrite
+   Overwrite existing files at the destination. By default, existing files are skipped.
+
+--preserve-extension
+   Output TIFF files will have the same extension as input files, i.e., no prefix
+   of ``.p`` will be added or removed. By default, compressed files get a ``.p``
+   prefix added to their extension.
+
+--copy-others
+   Copy non-TIFF files to the destination directory without processing them.
+
+Processing Options
+""""""""""""""""""
+
+-n <number>, --file-threads <number>
+   Maximum number of files processed simultaneously. This allows parallel processing
+   of multiple files for improved performance.
+
+--dry-run
+   Only display information about intended actions. Do not copy or process any files.
+   Useful for previewing what operations would be performed.
+
+Logging and Verbosity
+"""""""""""""""""""""
+
+-l <logfile>, --logfile <logfile>
+   Redirect log output to the specified file instead of stdout.
+
+-v <none|info|debug>, --verbosity <none|info|debug>
+   Level of verbosity for log output:
+
+   - ``none`` - No log output
+   - ``info`` - Informational messages
+   - ``debug`` - Detailed debugging information
+
+License
+"""""""
+
+-k <license_key>, --key <license_key>
+   License key for Jetraw compression. If not specified, the tool will look for the
+   license in the default location (see :doc:`installation`).
+
+General Options
+"""""""""""""""
+
+--version
+   Display version information and exit.
+
+-h, --help
+   Display usage information and exit.
+
+--, --ignore_rest
+   Ignore the rest of the labeled arguments following this flag. Useful when
+   processing files that might have names starting with hyphens.
+
+dpcore
+------
+
+The ``dpcore`` command-line tool prepares raw images for efficient lossless compression
+by applying noise replacement based on camera calibration parameters. It can also list
+available calibration identifiers and optionally compress images after preparation.
+
+Commands
+~~~~~~~~
+
+prepare
+^^^^^^^
+
+Prepare images for compression using a calibration identifier.
+
+.. code-block:: console
+
+   dpcore [optional arguments] -d <destination> -i <identifier> <sources>
+
+list-ids
+^^^^^^^^
+
+Print a list of all available calibration identifiers. No TIFF files are processed
+when using this command.
+
+.. code-block:: console
+
+   dpcore [optional arguments] --list-ids
+
+Required Options
+~~~~~~~~~~~~~~~
+
+For the prepare command, the following options are required:
+
+-d <destination>, --destination <destination>
+   Destination directory where prepared files are written. The directory will be
+   created if it does not exist.
+
+-i <identifier>, --identifier <identifier>
+   Image sensor identifier specifying which calibration parameters to use. Use
+   ``--list-ids`` to see available identifiers.
+
+<sources>
+   Files and directories to prepare. Multiple sources can be specified. When a
+   directory is specified, only TIFF files (``.tif`` or ``.tiff`` extensions)
+   within that directory are processed, unless ``--recursive`` is used.
+
+For the list-ids command:
+
+--list-ids
+   Print list of available identifiers (no TIFF files are processed).
+
+Optional Options
+~~~~~~~~~~~~~~~~
+
+Compression Options
+"""""""""""""""""""
+
+-c, --compress
+   Compress output files with Jetraw after preparation. This combines image
+   preparation and compression in a single step.
+
+-e <error_bound>, --error-bound <error_bound>
+   Compression error bound, defaults to 1.0. This parameter controls the maximum
+   pixel modification in units of standard deviations during image preparation.
+
+File Operations
+"""""""""""""""
+
+-r, --recursive
+   Include subdirectories recursively when processing directories.
+
+--overwrite
+   Overwrite existing files at the destination. By default, existing files are skipped.
+
+--preserve-extension
+   Do not prefix file extension with ``.p`` for compression. By default, compressed
+   files get a ``.p`` prefix added to their extension.
+
+--copy-others
+   Copy non-TIFF files to the destination directory without processing them.
+
+--pco-timestamps
+   Shelve BCD-encoded PCO timestamps for later retrieval. This option is specific to
+   PCO camera systems.
+
+Processing Options
+""""""""""""""""""
+
+-n <number>, --file-threads <number>
+   Maximum number of files processed simultaneously. This allows parallel processing
+   of multiple files for improved performance.
+
+--dry-run
+   Only display information about intended actions. Do not copy or process any files.
+   Useful for previewing what operations would be performed.
+
+Parameter Files
+"""""""""""""""
+
+-p <paramfile>, --paramfile <paramfile>
+   Path to the file containing noise-replacement parameters. If not specified, the
+   tool will look for parameter files in default locations (see :doc:`installation`).
+
+Logging and Verbosity
+"""""""""""""""""""""
+
+-l <logfile>, --logfile <logfile>
+   Redirect log output to the specified file instead of stdout.
+
+-v <none|info|debug>, --verbosity <none|info|debug>
+   Level of verbosity for log output:
+
+   - ``none`` - No log output
+   - ``info`` - Informational messages
+   - ``debug`` - Detailed debugging information
+
+License
+"""""""
+
+-k <license_key>, --key <license_key>
+   License key for compression. If not specified and compression is enabled, the
+   tool will look for the license in the default location (see :doc:`installation`).
+
+General Options
+"""""""""""""""
+
+--version
+   Display version information and exit.
+
+-h, --help
+   Display usage information and exit.
+
+--, --ignore_rest
+   Ignore the rest of the labeled arguments following this flag. Useful when
+   processing files that might have names starting with hyphens.

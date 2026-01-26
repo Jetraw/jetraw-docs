@@ -1,0 +1,127 @@
+Getting started
+===============
+
+Ensure you have performed the steps in the installation section and have understood the workflow used by Jetraw to compress a file. The following examples show how to prepare and compress an image.
+
+Command Line interfaces
+-----------------------
+
+Start by listing available calibration profiles using dpcore
+
+.. code-block:: bash
+
+    dpcore --list-ids
+
+This will print a list of all available camera profiles, each identifier
+corresponding to a set of conversion gain and black level values.
+
+Once the correct identifier has been selected, the image can be prepared by
+calling dpcore again. 
+
+.. code-block:: bash
+
+    dpcore -i "calibration-identifier" -d prepared myfile.tiff
+
+This command will create the `prepared/myfile.tiff` file.
+
+After preparation, the jetraw CLI can be used to compress and decompress the
+file.
+
+.. code-block:: bash
+
+    jetraw compress -d compressed prepared/myfile.tiff
+    jetraw decompress -d decompressed compressed/myfile.p.tiff
+
+Development libraries
+---------------------
+
+Raw pixel buffers
+~~~~~~~~~~~~~~~~~
+
+The following example assumes that you have loaded your image data into memory.
+Image data must be loaded into an array of 16-bit values. The example code does
+not check for status codes or allocate memory buffers.
+
+.. code-block:: cpp
+
+    // Load calibration files
+    dpcore_init();
+
+    // Apply image preparation. The image will be prepared in-place.
+    dpcore_prepare_image(image_buffer, image_width * image_height, "calibration-identifier");
+
+    // Compress image
+    jetraw_encode(image_buffer, image_width, image_height, compressed_buffer, compressed_buffer_size);
+
+    // Decompress image
+    jetraw_decode(compressed_buffer, compressed_buffer_size, decompressed_image, image_width * image_height);
+
+TIFF library
+~~~~~~~~~~~~
+
+The Jetraw TIFF library provides a convenient API for working with TIFF files
+that use Jetraw compression. The following example shows how to initialize the
+library and write a compressed image to a TIFF file.
+
+.. code-block:: cpp
+
+    // Initialize the Jetraw TIFF library
+    jetraw_tiff_init();
+
+    // Prepare the image (required before compression)
+    dpcore_init();
+    dpcore_prepare_image(image_buffer, image_width * image_height, "calibration-identifier");
+
+    // Open a TIFF file for writing
+    dp_tiff* tiff_handle = nullptr;
+    jetraw_tiff_open("output.tiff", image_width, image_height, "Image description", &tiff_handle, "w");
+
+    // Compress and append the image to the TIFF file
+    jetraw_tiff_append(tiff_handle, image_buffer);
+
+    // Close the TIFF file
+    jetraw_tiff_close(&tiff_handle);
+
+To decompress a TIFF file, open it in read mode and read the compressed pages:
+
+.. code-block:: cpp
+
+    // Initialize the Jetraw TIFF library
+    jetraw_tiff_init();
+
+    // Open a TIFF file for reading
+    dp_tiff* tiff_handle = nullptr;
+    jetraw_tiff_open("compressed.tiff", image_width, image_height, "Compressed TIFF file", &tiff_handle, "r");
+
+    // Get image dimensions from the file (optional, if not already known)
+    int width = jetraw_tiff_get_width(tiff_handle);
+    int height = jetraw_tiff_get_height(tiff_handle);
+    int num_pages = jetraw_tiff_get_pages(tiff_handle);
+
+    // Allocate buffer for decompressed image data
+    std::vector<uint16_t> decompressed_image(width * height);
+
+    // Read and decompress the first page (page index 0)
+    jetraw_tiff_read_page(tiff_handle, decompressed_image.data(), 0);
+
+    // Close the TIFF file
+    jetraw_tiff_close(&tiff_handle);
+
+Error handling
+~~~~~~~~~~~~~~
+
+Most functions in the Jetraw libraries return a ``dp_status`` enum value indicating
+the operation's success or failure. Common status values include ``dp_success``,
+``dp_file_read_error``, ``dp_license_error``, ``dp_parameter_error``, and
+``dp_memory_error``. Always check the return value:
+
+.. code-block:: cpp
+    
+    dp_status status = dpcore_load_parameters("./calibration.dat");
+    if (status != dp_success) {
+        std::cerr << "Error: " << dp_status_description(status) << '\n';
+        return 1;
+    }
+
+Use ``dp_status_description()`` to get a human-readable error message for any
+status value.

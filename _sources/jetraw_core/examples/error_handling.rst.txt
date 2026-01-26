@@ -1,0 +1,97 @@
+Error Handling
+==============
+
+This example demonstrates proper error handling when using the Jetraw libraries.
+
+Most functions in the Jetraw libraries return a ``dp_status`` enum value that indicates
+whether the operation succeeded or failed. Always check return values and handle errors
+appropriately.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/dp_status.h"
+   #include <iostream>
+
+   int main() {
+       // Load calibration parameters with error checking
+       dp_status status = dpcore_load_parameters("./calibration.dat");
+
+       if (status != dp_success) {
+           std::cerr << "[ERROR LOADING CALIBRATION FILE]: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Example output if file does not exist:
+       // [ERROR LOADING CALIBRATION FILE]: Could not read file.
+
+       // Continue with your code...
+       return 0;
+   }
+
+Getting Error Descriptions
+---------------------------
+
+Use ``dp_status_description()`` to get a human-readable error message for any status
+code:
+
+.. code-block:: cpp
+
+   #include "jetraw/dp_status.h"
+   #include <iostream>
+
+   dp_status status = some_jetraw_function();
+
+   if (status != dp_success) {
+       const char* errorMsg = dp_status_description(status);
+       std::cerr << "Operation failed: " << errorMsg << '\n';
+   }
+
+Common Error Handling Pattern
+------------------------------
+
+Here's a reusable pattern for error handling:
+
+.. code-block:: cpp
+
+   #include "jetraw/dp_status.h"
+   #include <iostream>
+
+   bool check_status(dp_status status, const char* operation) {
+       if (status != dp_success) {
+           std::cerr << "Error in " << operation << ": "
+                     << dp_status_description(status) << '\n';
+           return false;
+       }
+       return true;
+   }
+
+   // Usage:
+   if (!check_status(dpcore_load_parameters("./calibration.dat"), "loading calibration")) {
+       return 1;
+   }
+
+Common Status Codes
+-------------------
+
+Some common status codes you may encounter:
+
+- ``dp_success`` - Operation completed successfully
+- ``dp_file_read_error`` - File could not be opened or read
+- ``dp_file_write_error`` - File could not be written
+- ``dp_license_error`` - License key could not be validated
+- ``dp_unknown_identifier`` - Calibration identifier not found
+- ``dp_parameter_error`` - Invalid parameters provided
+- ``dp_memory_error`` - Memory allocation failed
+
+See Also
+--------
+
+- :c:type:`dp_status` for complete list of status codes
+- :c:func:`dp_status_description`
+- :doc:`../c_libraries` for complete API reference
+

@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="C++ Jetraw Onboarding Docs" href="c_tutorial.html"><link rel="prev" title="Jetraw Core" href="index.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Usage Examples" href="examples/index.html"><link rel="prev" title="Command Line Interface" href="cli.html">
         <link rel="canonical" href="https://docs.dotphoton.com/jetraw_core/jetraw_ui.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>Jetraw Image Compression - Jetraw Platform</title>
+        <title>Jetraw UI - Jetraw Platform</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -195,28 +195,46 @@
   <p class="caption" role="heading"><span class="caption-text">Explore our documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Jetraw Core</a><input aria-label="Toggle navigation of Jetraw Core" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Jetraw Image Compression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c_tutorial.html">C++ Jetraw Onboarding Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_overview.html">Workflow overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c_libraries.html">C API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Jetraw UI</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="examples/index.html">Usage Examples</a><input aria-label="Toggle navigation of Usage Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/initialization.html">Initialization and License Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/loading_calibration.html">Loading Calibration Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/preparing_images.html">Preparing Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/efficient_preparation.html">Efficient Preparation and Compression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/compressing_buffer.html">Compressing to Memory Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/writing_tiff.html">Writing Compressed TIFF Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/reading_tiff.html">Reading Compressed TIFF Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/decompressing_buffer.html">Decompressing from Memory Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multi_page_tiff.html">Multi-page TIFF Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/tiff_metadata.html">Getting TIFF File Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/error_handling.html">Error Handling</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="fpga.html">Jetraw Core FPGA implementation</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jfs/index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/gui/index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../jfs/index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/gui/index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/gui/installation.html">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/gui/usage.html">Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/gui/faq.html">FAQ</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/cli/installation.html">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/cli/usage.html">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/python_sdk/index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/python_sdk/index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/python_sdk/installation.html">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/python_sdk/authentication.html">Authentication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../jfs/python_sdk/getting-started.html">Getting started</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../jfs/python_sdk/jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../jfs/python_sdk/jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.client.html">jetraw.client module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.license.html">jetraw.license module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.links.html">jetraw.links module</a></li>
@@ -269,135 +287,67 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="jetraw-image-compression">
-<h1>Jetraw Image Compression<a class="headerlink" href="#jetraw-image-compression" title="Link to this heading">¶</a></h1>
-<p>This sections hosts Desktop Clients to test Jetraw image compression software. For more information about Jetraw, please visit <a class="reference external" href="https://jetraw.com/">https://jetraw.com/</a>.</p>
-<section id="quick-start">
-<h2>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
-<p>Jetraw can be used free of charge for decompression. You can try compression on a sample set of microscopy images by applying for the free testing kit at <a class="reference external" href="https://jetraw.com/downloads/software">https://jetraw.com/downloads/software</a>.</p>
-<section id="jetraw-ui">
-<h3>Jetraw UI<a class="headerlink" href="#jetraw-ui" title="Link to this heading">¶</a></h3>
-<p>On Windows and macOS, Jetraw comes with a UI, where you can easily enter and check your license data, install and view device calibrations, and compress / decompress TIFF files.</p>
+          <section id="jetraw-ui">
+<h1>Jetraw UI<a class="headerlink" href="#jetraw-ui" title="Link to this heading">¶</a></h1>
+<p>Jetraw UI is a desktop application for Windows and macOS that provides a graphical
+interface for managing licenses, device calibrations, and compressing or decompressing
+TIFF files. For installation instructions, see <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>.</p>
+<section id="using-jetraw-ui">
+<h2>Using Jetraw UI<a class="headerlink" href="#using-jetraw-ui" title="Link to this heading">¶</a></h2>
+<p>On Windows and macOS, Jetraw comes with a graphical user interface where you can
+easily enter and check your license data, install and view device calibrations, and
+compress or decompress TIFF files.</p>
 <img alt="Screenshot of JetrawUI on macOS" src="../_images/jetraw-ui_macos.png" />
-<p>To get started, you can follow the following steps.</p>
-</section>
-<section id="windows-installation">
-<h3>Windows installation<a class="headerlink" href="#windows-installation" title="Link to this heading">¶</a></h3>
+<section id="license-setup">
+<h3>License setup<a class="headerlink" href="#license-setup" title="Link to this heading">¶</a></h3>
+<p>To enter your license key:</p>
 <ol class="arabic simple">
-<li><p>Download the Windows installer (MSI file) for the <a class="reference external" href="https://github.com/Jetraw/Jetraw/releases">latest (pre-)release</a>.</p></li>
-<li><p>Run JetrawUI, either from the installer or from the start menu.</p></li>
+<li><p>Open Jetraw UI</p></li>
+<li><p>Click on the “License” menu item in the left sidebar</p></li>
+<li><p>Enter your license key in the provided field</p></li>
+<li><p>The license will be saved automatically to the correct location</p></li>
+</ol>
+<p>For more information about license file locations, see <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>.</p>
+</section>
+<section id="adding-device-calibrations">
+<h3>Adding device calibrations<a class="headerlink" href="#adding-device-calibrations" title="Link to this heading">¶</a></h3>
+<p>To add support for a camera:</p>
+<ol class="arabic simple">
+<li><p>Click on “Devices” in the left sidebar</p></li>
+<li><p>Drag and drop the calibration file (<code class="docutils literal notranslate"><span class="pre">.dat</span></code> extension) that you received onto
+the right panel</p></li>
+<li><p>A new device should appear in the list</p></li>
+</ol>
+<p>The calibration file contains the camera-specific parameters needed for image
+preparation. For information about calibration file locations, see <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>.</p>
+</section>
+<section id="compressing-and-decompressing-files">
+<h3>Compressing and decompressing files<a class="headerlink" href="#compressing-and-decompressing-files" title="Link to this heading">¶</a></h3>
+<p>To compress or decompress TIFF files:</p>
+<ol class="arabic simple">
+<li><p>Open the compression panel by clicking on it in the left sidebar</p></li>
+<li><p>Drag and drop TIFF files into the file area, or click to browse and select files</p></li>
+<li><p>Choose the action: <em>compress</em> or <em>decompress</em></p></li>
+<li><p>For compression, select the identifier that matches your camera settings (the
+identifier corresponds to the device calibration you installed)</p></li>
+<li><p>Choose a destination directory</p></li>
+<li><p>Click the “Go” button to start processing</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Please verify that the bin64 jetraw installation folder is included in the Environment System Variables (e.g. <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Jetraw\bin64</span></code>). If not, the UI app will not be able to find the necessary libraries to run.</p>
+<p>In Jetraw UI, noise replacement (image preparation) is done automatically if
+necessary. When using the command line, two separate commands offer more
+fine-grained control. See <a class="reference internal" href="cli.html"><span class="doc">Command Line Interface</span></a> for command-line usage.</p>
 </div>
-</section>
-<section id="macos-installation">
-<h3>macOS installation<a class="headerlink" href="#macos-installation" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Download macOS disk image (DMG file) for the <a class="reference external" href="https://github.com/Jetraw/Jetraw/releases">latest (pre-)release</a>.</p></li>
-<li><p>Open the disk image in Finder and drag <code class="docutils literal notranslate"><span class="pre">JetrawUI.app</span></code> onto the <code class="docutils literal notranslate"><span class="pre">Applications</span></code> folder. Launch JetrawUI from the Applications folder.</p></li>
-</ol>
-</section>
-<section id="setup-and-compression">
-<h3>Setup and compression<a class="headerlink" href="#setup-and-compression" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Enter your license key after following the corresponding menu item on the left side.</p></li>
-<li><p>To add support for a camera, click on “devices” on the left and drag-and-drop the file with the extension <code class="docutils literal notranslate"><span class="pre">.dat</span></code> that you received onto the right panel. A new device should appear.</p></li>
-<li><p>Open the compression panel. Drop some TIFF files, acquired with the device that you installed above. Choose <em>compress</em> as action and select the identifier that matches the camera settings. After choosing a destination directory, you can start the compression by clicking the “Go” Button.</p></li>
-</ol>
-</section>
-<section id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Link to this heading">¶</a></h3>
-<p>On Linux, Jetraw does not yet come with JetrawUI. You can install the command line utilities and development libraries by downloading and unpacking the <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> file of the <a class="reference external" href="https://github.com/Jetraw/Jetraw/releases">latest (pre-)release</a>.</p>
-<p>The license key will be found by Jetraw if placed in a file <code class="docutils literal notranslate"><span class="pre">~/.config/jetraw/license.txt</span></code>.</p>
-<p>Camera calibration files with extension <code class="docutils literal notranslate"><span class="pre">.dat</span></code> should be copied to the directory <code class="docutils literal notranslate"><span class="pre">~/.config/dpcore/</span></code>.</p>
-<p>Instructions on how to use the command lines are given below.</p>
+<p>The UI will process the files and display progress information. Once complete, the
+processed files will be available in the destination directory you specified.</p>
 </section>
 </section>
-<section id="device-identifiers">
-<h2>Device identifiers<a class="headerlink" href="#device-identifiers" title="Link to this heading">¶</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>To achieve its high compression ratio, Jetraw relies on knowledge of the exact statistics given by the <em>camera profile</em> to perform noise-replacement. These depend on the camera’s unique serial number, as well as the settings that were used to acquire the image. In Jetraw, these are accessed through <em>identifiers</em>. Using the wrong identifier <strong>may reduce image quality</strong>.</p>
-</div>
-</section>
-<section id="command-line-utilities">
-<h2>Command line utilities<a class="headerlink" href="#command-line-utilities" title="Link to this heading">¶</a></h2>
-<p>Command line utilities can be run after opening a Command Prompt, PowerShell, or Terminal. The use of the utilities is identical on all operating systems.</p>
-<p>In general, Jetraw compression consists of two steps:</p>
-<ol class="arabic simple">
-<li><p>Accurate noise replacement with the help of camera calibration data provided through an <em>identifier</em>.</p></li>
-<li><p>Lossless compression of the noise-replaced data.</p></li>
-</ol>
-<p>The noise-replacement needs only to be performed once, after which lossless compression and decompression can be performed any number of times.</p>
-<p>In JetrawUI, noise-replacement is done automatically if necessary. When using the command line, two separate commands offer more fine-grained control.</p>
-<section id="noise-replacement-with-dpcore">
-<h3>Noise replacement with DPCore<a class="headerlink" href="#noise-replacement-with-dpcore" title="Link to this heading">¶</a></h3>
-<p>The command line utility <code class="docutils literal notranslate"><span class="pre">dpcore</span></code> is used to perform noise replacement. Optionally, this can be combined with compression. To see a description of all possible options for <code class="docutils literal notranslate"><span class="pre">dpcore</span></code>, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dpcore --help</span>
-</pre></div>
-</div>
-</section>
-<section id="displaying-identifiers">
-<h3>Displaying identifiers<a class="headerlink" href="#displaying-identifiers" title="Link to this heading">¶</a></h3>
-<p>To show all installed identifiers together with a short description, you can run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dpcore --list-ids</span>
-</pre></div>
-</div>
-</section>
-<section id="performing-noise-replacement">
-<h3>Performing noise replacement<a class="headerlink" href="#performing-noise-replacement" title="Link to this heading">¶</a></h3>
-<p>The minimal command to perform noise replacement is:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dpcore [-c] -d &lt;destination&gt; -i &lt;identifier&gt; &lt;sources&gt;</span>
-</pre></div>
-</div>
-<p>The arguments are as follows:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-c</span></code> is optional and will apply compression to the noise-replaced files.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">&lt;destination&gt;</span></code> specifies the destination directory. The directory will be created if it doesn’t exist.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sources&gt;</span></code> are source files (extension must be <code class="docutils literal notranslate"><span class="pre">.tif</span></code> or <code class="docutils literal notranslate"><span class="pre">.tiff</span></code>) or directories containing those files.</p></li>
-</ul>
-</section>
-</section>
-<section id="compression-and-decompression-with-jetraw">
-<h2>Compression and decompression with Jetraw<a class="headerlink" href="#compression-and-decompression-with-jetraw" title="Link to this heading">¶</a></h2>
-<p>Prepared images can then be compressed and decompressed without loss using <code class="docutils literal notranslate"><span class="pre">jetraw</span></code>. As above, you can run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">jetraw --help</span>
-</pre></div>
-</div>
-<p>to get a list of all available options.</p>
-<p>Jetraw does not need camera calibration information, because it was embedded into the image data by <code class="docutils literal notranslate"><span class="pre">dpcore</span></code>. Hence, using <code class="docutils literal notranslate"><span class="pre">jetraw</span></code> is usually as simple as:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">jetraw compress -d compressed c1.tif</span>
-<span class="go">jetraw decompress -d decompressed c1.p.tif</span>
-</pre></div>
-</div>
-</section>
-<section id="convenient-use-of-the-command-lines-on-macos">
-<h2>Convenient use of the command lines on macOS<a class="headerlink" href="#convenient-use-of-the-command-lines-on-macos" title="Link to this heading">¶</a></h2>
-<p>On macOS, the command lines are bundled with the App and can be found at <code class="docutils literal notranslate"><span class="pre">/Applications/Jetraw</span> <span class="pre">UI.app/Contents/jetraw/bin/</span></code>. To conveniently run them from any other directory, you have two options.</p>
-<ol class="arabic">
-<li><p>Give macOS an additional location to look for executables by adding the Jetraw directory to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable. Open a terminal and run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">:/Applications/Jetraw UI.app/Contents/jetraw/bin&quot;</span>
-</pre></div>
-</div>
-<p>You will have to re-run the command whenever you open a new terminal. To avoid this, you can add the above line to the file <code class="docutils literal notranslate"><span class="pre">.zshrc</span></code> (<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> on older systems) in your home directory.</p>
-</li>
-<li><p>This method is slightly more advanced and may require super-user privileges on your system. It relies on creating symbolic links in the directory <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code>, which is a standard location for user-installed executables. However, this directory may not exist, or it may not be writable. Let’s check that first. Open a terminal and run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>stat<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;%N =&gt; OWNER:%Su (%Sg), PERMISSIONS:%Sp&quot;</span><span class="w"> </span>/usr/local/bin
-</pre></div>
-</div>
-<p>If the directory does not exist, it can be created:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>/usr/local/bin
-</pre></div>
-</div>
-<p>If the output of the <code class="docutils literal notranslate"><span class="pre">stat</span></code> command does not show you as the owner of the directory, you can either take ownership with the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chown<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>/usr/local/bin
-</pre></div>
-</div>
-<p>or you can prefix the following commands with ``</p>
-</li>
-</ol>
+<section id="platform-availability">
+<h2>Platform availability<a class="headerlink" href="#platform-availability" title="Link to this heading">¶</a></h2>
+<p>Jetraw UI is available for Windows and macOS. On Linux, only the command-line
+utilities and development libraries are provided. For Linux users, see <a class="reference internal" href="cli.html"><span class="doc">Command Line Interface</span></a> for
+instructions on using the command-line tools.</p>
 </section>
 </section>
 
@@ -406,23 +356,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="c_tutorial.html">
+          <a class="next-page" href="examples/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">C++ Jetraw Onboarding Docs</div>
+                <div class="title">Usage Examples</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="cli.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Jetraw Core</div>
+                <div class="title">Command Line Interface</div>
                 
               </div>
             </a>
@@ -439,7 +389,7 @@
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="#" aria-label="Last update">Last update on 2025-12-10</a>
+              <a class="muted-link " href="#" aria-label="Last update">Last update on 2026-01-26</a>
               
             </div>
           </div>
@@ -459,24 +409,14 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Jetraw Image Compression</a><ul>
-<li><a class="reference internal" href="#quick-start">Quick start</a><ul>
-<li><a class="reference internal" href="#jetraw-ui">Jetraw UI</a></li>
-<li><a class="reference internal" href="#windows-installation">Windows installation</a></li>
-<li><a class="reference internal" href="#macos-installation">macOS installation</a></li>
-<li><a class="reference internal" href="#setup-and-compression">Setup and compression</a></li>
-<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#">Jetraw UI</a><ul>
+<li><a class="reference internal" href="#using-jetraw-ui">Using Jetraw UI</a><ul>
+<li><a class="reference internal" href="#license-setup">License setup</a></li>
+<li><a class="reference internal" href="#adding-device-calibrations">Adding device calibrations</a></li>
+<li><a class="reference internal" href="#compressing-and-decompressing-files">Compressing and decompressing files</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#device-identifiers">Device identifiers</a></li>
-<li><a class="reference internal" href="#command-line-utilities">Command line utilities</a><ul>
-<li><a class="reference internal" href="#noise-replacement-with-dpcore">Noise replacement with DPCore</a></li>
-<li><a class="reference internal" href="#displaying-identifiers">Displaying identifiers</a></li>
-<li><a class="reference internal" href="#performing-noise-replacement">Performing noise replacement</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#compression-and-decompression-with-jetraw">Compression and decompression with Jetraw</a></li>
-<li><a class="reference internal" href="#convenient-use-of-the-command-lines-on-macos">Convenient use of the command lines on macOS</a></li>
+<li><a class="reference internal" href="#platform-availability">Platform availability</a></li>
 </ul>
 </li>
 </ul>

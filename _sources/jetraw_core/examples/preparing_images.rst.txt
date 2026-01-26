@@ -1,0 +1,80 @@
+Preparing Images
+================
+
+This example demonstrates how to prepare images for compression using DPCore.
+
+Image preparation is a required step before compression. It performs noise replacement
+based on camera calibration parameters. The image buffer is modified in-place.
+
+There are two functions available for image preparation:
+
+- ``dpcore_prepare_image()`` - Performs full noise replacement
+- ``dpcore_embed_meta()`` - Only embeds metadata (more efficient when compressing immediately)
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/dp_status.h"
+   #include <iostream>
+
+   int main() {
+       // Assume image buffer is already loaded
+       uint16_t* imageBuffer;
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       // Prepare the image using full noise replacement
+       dp_status status = dpcore_prepare_image(
+           imageBuffer,
+           PIXELS,
+           "calibration_identifier",
+           1.0f  // error_bound (default: 1.0)
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Failed to prepare image: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Image is now prepared and ready for compression
+       // ... rest of your code ...
+   }
+
+Alternative: Embed Metadata Only
+--------------------------------
+
+If you plan to compress the image immediately, you can use ``dpcore_embed_meta()``
+instead, which avoids redundant quantization/de-quantization:
+
+.. code-block:: cpp
+
+   // Only embed metadata (more efficient for immediate compression)
+   dp_status status = dpcore_embed_meta(
+       imageBuffer,
+       PIXELS,
+       "calibration_identifier",
+       1.0f  // error_bound
+   );
+
+Notes
+-----
+
+- The image buffer is modified in-place during preparation.
+- If an image is already prepared, calling these functions again will return
+  ``dp_success`` without modifying the image.
+- The calibration identifier must match one of the identifiers available in your
+  calibration file. Use ``dpcore_get_identifiers()`` to list available identifiers.
+
+See Also
+--------
+
+- :c:func:`dpcore_prepare_image`
+- :c:func:`dpcore_embed_meta`
+- :doc:`efficient_preparation` for using embed_meta with immediate compression
+- :doc:`../c_libraries` for complete API reference
+

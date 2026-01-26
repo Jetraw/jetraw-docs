@@ -1,0 +1,56 @@
+Installation
+============
+
+Installation files are provided by Dotphoton upon request. You should have
+received an archive with the required components. For Windows and macOS, an
+installer that also installs the Jetraw-UI is provided. On Linux, an archive
+containing the CLI application and development libraries is provided.
+
+A license file and calibration files need to be set up on the target machine as
+well; they are included in the delivered archive. By default, the license
+verification requires an active internet connection. Should this be an issue, an
+offline license can be requested. 
+
+Windows
+-------
+
+Install the Jetraw-UI and the development libraries by using the .msi installer.
+This will install the Jetraw UI at the specified location, as well as making the
+development libraries available.
+
+By default, the application is installed at `C:\Program Files\Jetraw`. DLLs,
+link libraries and header files are available in the `bin64`, `lib64` and
+`include` subdirectories.
+
+The license can be entered in the Jetraw-UI, which will save it automatically at
+the correct location. It is also possible to save the license manually, by
+placing the `license.txt` file into the `%APPDATA%\Jetraw\` folder. 
+
+Calibration files need to be placed into the `%APPDATA%\dpcore` folder.
+
+macOS
+-----
+
+Install the Jetraw-UI and the development libraries by using the DMG file. By
+default, command line executables and development libraries are available at
+`/Applications/Jetraw UI.app/Contents/`. 
+
+Linux
+-----
+
+Jetraw-UI is not available for Linux; only an archive containing the CLI
+applications and shared libraries is provided.
+
+License and calibration files
+-----------------------------
+
+The license can be configured through the Jetraw-UI, but the `license.txt` file
+can also be placed in the corresponding folder manually. Calibration files also
+need to be placed into the correct folder for the application to find them. The
+location of these files is OS-specific.
+
+.. csv-table:: Configuration data location
+   :header: "OS", "License file", "Calibration files"
+   "Windows", "%APPDATA%\jetraw\license.txt", "%APPDATA%\dpcore\"
+   "macOS", "~/Library/Application Support/jetraw/license.txt", "~/Library/Application Support/dpcore/"
+   "Linux", "~/.config/jetraw/license.txt", "~/.config/dpcore/"

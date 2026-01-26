@@ -1,0 +1,41 @@
+Usage Examples
+==============
+
+This section provides practical code examples demonstrating how to use the Jetraw C API
+libraries. Each example focuses on a specific feature or workflow.
+
+Setup and Preparation
+---------------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples:
+
+   initialization
+   loading_calibration
+   preparing_images
+   efficient_preparation
+
+Compression and Decompression
+-------------------------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples:
+
+   compressing_buffer
+   writing_tiff
+   reading_tiff
+   decompressing_buffer
+
+Advanced Features
+-----------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples:
+
+   multi_page_tiff
+   tiff_metadata
+   error_handling
+
