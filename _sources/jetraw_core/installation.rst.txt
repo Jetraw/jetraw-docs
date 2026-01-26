@@ -49,8 +49,19 @@ can also be placed in the corresponding folder manually. Calibration files also
 need to be placed into the correct folder for the application to find them. The
 location of these files is OS-specific.
 
-.. csv-table:: Configuration data location
-   :header: "OS", "License file", "Calibration files"
-   "Windows", "%APPDATA%\jetraw\license.txt", "%APPDATA%\dpcore\"
-   "macOS", "~/Library/Application Support/jetraw/license.txt", "~/Library/Application Support/dpcore/"
-   "Linux", "~/.config/jetraw/license.txt", "~/.config/dpcore/"
+.. list-table:: Configuration data location
+   :header-rows: 1
+   :widths: 15 40 45
+
+   * - OS
+     - License file
+     - Calibration files
+   * - Windows
+     - ``%APPDATA%\jetraw\license.txt``
+     - ``%APPDATA%\dpcore\``
+   * - macOS
+     - ``~/Library/Application Support/jetraw/license.txt``
+     - ``~/Library/Application Support/dpcore/``
+   * - Linux
+     - ``~/.config/jetraw/license.txt``
+     - ``~/.config/dpcore/``
