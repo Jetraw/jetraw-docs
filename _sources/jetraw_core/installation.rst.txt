@@ -65,3 +65,8 @@ location of these files is OS-specific.
    * - Linux
      - ``~/.config/jetraw/license.txt``
      - ``~/.config/dpcore/``
+
+Offline license
+~~~~~~~~~~~~~~~~
+
+In case an offline license was requested, the archive will contain the `license.txt` file and a `.lic` file. The `.lic` file must be placed in the same folder as the `license.txt` file.
