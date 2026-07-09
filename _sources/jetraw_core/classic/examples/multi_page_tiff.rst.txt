@@ -1,0 +1,87 @@
+Multi-page TIFF Files
+======================
+
+This example demonstrates how to prepare multiple pages of a TIFF file for compression.
+
+When working with multi-page TIFF files, you need to prepare each page individually
+before compression. This example shows how to loop through multiple image buffers and
+prepare them.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/dp_status.h"
+   #include <vector>
+   #include <iostream>
+
+   int main() {
+       // Assume you have multiple image buffers (e.g., from a multi-page TIFF)
+       std::vector<uint16_t*> imageBuffers;
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       // Prepare each page
+       for (const auto& buffer : imageBuffers) {
+           dp_status status = dpcore_embed_meta(
+               buffer,
+               PIXELS,
+               "calibration_identifier",
+               1.0f
+           );
+
+           if (status != dp_success) {
+               std::cerr << "Failed to prepare image page: "
+                         << dp_status_description(status) << '\n';
+               return 1;
+           }
+       }
+
+       // All pages are now prepared and ready for compression
+       // You can now append them to a TIFF file or compress them individually
+       // ... rest of your code ...
+   }
+
+Appending Multiple Pages to a TIFF File
+----------------------------------------
+
+When writing multiple pages to a TIFF file, append each prepared page sequentially:
+
+.. code-block:: cpp
+
+   #include "jetraw_tiff/jetraw_tiff.h"
+
+   // ... initialization code ...
+
+   dp_tiff* handle = nullptr;
+   jetraw_tiff_open("./multi_page.tiff", WIDTH, HEIGHT, "Multi-page TIFF", &handle, "w");
+
+   // Append each prepared page
+   for (const auto& buffer : imageBuffers) {
+       dp_status status = jetraw_tiff_append(handle, buffer);
+       if (status != dp_success) {
+           // Handle error...
+       }
+   }
+
+   jetraw_tiff_close(&handle);
+
+Notes
+-----
+
+- All pages in a multi-page TIFF must have the same dimensions.
+- Each page must be prepared individually before compression.
+- The order of pages is preserved when appending to a TIFF file.
+
+See Also
+--------
+
+- :c:func:`dpcore_embed_meta`
+- :c:func:`dpcore_prepare_image`
+- :c:func:`jetraw_tiff_append`
+- :doc:`preparing_images` for single-page preparation
+- :doc:`writing_tiff` for writing TIFF files
+

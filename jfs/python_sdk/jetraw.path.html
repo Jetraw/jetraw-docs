@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="jetraw.spaces module" href="jetraw.spaces.html"><link rel="prev" title="jetraw.links module" href="jetraw.links.html">
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="jetraw.trash module" href="jetraw.trash.html"><link rel="prev" title="jetraw.links module" href="jetraw.links.html">
         <link rel="canonical" href="https://docs.dotphoton.com/jfs/python_sdk/jetraw.path.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
@@ -195,52 +195,66 @@
   <p class="caption" role="heading"><span class="caption-text">Explore our documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../jetraw_core/index.html">Jetraw Core</a><input aria-label="Toggle navigation of Jetraw Core" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/workflow_overview.html">Workflow overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/getting_started.html">Getting started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/c_libraries.html">C API Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/cli.html">Command Line Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/jetraw_ui.html">Jetraw UI</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../jetraw_core/examples/index.html">Usage Examples</a><input aria-label="Toggle navigation of Usage Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/initialization.html">Initialization and License Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/loading_calibration.html">Loading Calibration Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/preparing_images.html">Preparing Images</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/efficient_preparation.html">Efficient Preparation and Compression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/compressing_buffer.html">Compressing to Memory Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/writing_tiff.html">Writing Compressed TIFF Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/reading_tiff.html">Reading Compressed TIFF Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/decompressing_buffer.html">Decompressing from Memory Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/multi_page_tiff.html">Multi-page TIFF Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/tiff_metadata.html">Getting TIFF File Metadata</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/examples/error_handling.html">Error Handling</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../jetraw_core/classic/index.html">Jetraw</a><input aria-label="Toggle navigation of Jetraw" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/classic/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/classic/getting_started.html">Getting started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/classic/c_libraries.html">C API Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/classic/cli.html">Command Line Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/classic/jetraw_ui.html">Jetraw UI</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../jetraw_core/classic/examples/index.html">Usage Examples</a><input aria-label="Toggle navigation of Usage Examples" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/initialization.html">Initialization and License Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/loading_calibration.html">Loading Calibration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/preparing_images.html">Preparing Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/efficient_preparation.html">Efficient Preparation and Compression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/compressing_buffer.html">Compressing to Memory Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/writing_tiff.html">Writing Compressed TIFF Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/reading_tiff.html">Reading Compressed TIFF Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/decompressing_buffer.html">Decompressing from Memory Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/multi_page_tiff.html">Multi-page TIFF Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/tiff_metadata.html">Getting TIFF File Metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/classic/examples/error_handling.html">Error Handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../jetraw_core/standalone/index.html">Jetraw Standalone</a><input aria-label="Toggle navigation of Jetraw Standalone" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../jetraw_core/standalone/api_reference.html">API Reference</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../jetraw_core/standalone/examples/index.html">Usage Examples</a><input aria-label="Toggle navigation of Usage Examples" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/standalone/examples/setting_up_license.html">Setting Up the License</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/standalone/examples/using_calibration_files.html">Using Calibration Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/standalone/examples/creating_custom_profiles.html">Creating Custom Calibration Profiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/standalone/examples/compressing_and_decompressing.html">Compressing and Decompressing Buffers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/standalone/examples/reading_image_metadata.html">Reading Image Metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jetraw_core/standalone/examples/error_handling.html">Error Handling</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/fpga.html">Jetraw Core FPGA implementation</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="../gui/index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../gui/index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../gui/installation.html">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../gui/usage.html">Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../gui/faq.html">FAQ</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cli/installation.html">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cli/usage.html">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="getting-started.html">Getting started</a></li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3 current has-children"><a class="reference internal" href="jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="jetraw.client.html">jetraw.client module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jetraw.license.html">jetraw.license module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jetraw.links.html">jetraw.links module</a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">jetraw.path module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="jetraw.spaces.html">jetraw.spaces module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="jetraw.storages.html">jetraw.storages module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jetraw.trash.html">jetraw.trash module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jetraw.users.html">jetraw.users module</a></li>
 </ul>
@@ -320,7 +334,7 @@ Supports both absolute paths (/space/folder/file) and UUIDs.</p>
 <dd><p>Get the absolute path (alias for resolve()).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#jetraw.path.Path" title="jetraw.path.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Self</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -329,6 +343,11 @@ Supports both absolute paths (/space/folder/file) and UUIDs.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.as_posix">
 <span class="sig-name descname"><span class="pre">as_posix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.as_posix" title="Link to this definition">¶</a></dt>
 <dd><p>Return the path as a POSIX-style string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -498,12 +517,22 @@ Note: Loads all contents from server and filters client-side.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.is_block_device">
 <span class="sig-name descname"><span class="pre">is_block_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_block_device" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a block device (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="jetraw.path.Path.is_char_device">
 <span class="sig-name descname"><span class="pre">is_char_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_char_device" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a character device (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -529,6 +558,11 @@ Note: Loads all contents from server and filters client-side.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.is_fifo">
 <span class="sig-name descname"><span class="pre">is_fifo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_fifo" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a FIFO (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -554,6 +588,11 @@ Note: Loads all contents from server and filters client-side.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.is_junction">
 <span class="sig-name descname"><span class="pre">is_junction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_junction" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a junction (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -566,6 +605,11 @@ Note: Loads all contents from server and filters client-side.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.is_mount">
 <span class="sig-name descname"><span class="pre">is_mount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_mount" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a mount point (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -583,6 +627,11 @@ Note: Loads all contents from server and filters client-side.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.is_socket">
 <span class="sig-name descname"><span class="pre">is_socket</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_socket" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a socket (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -603,11 +652,16 @@ Note: Loads all contents from server and filters client-side.</p>
 <dt class="sig sig-object py" id="jetraw.path.Path.is_symlink">
 <span class="sig-name descname"><span class="pre">is_symlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.is_symlink" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the path is a symbolic link (always False for Jetraw paths).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">False</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="jetraw.path.Path.iterdir">
-<span class="sig-name descname"><span class="pre">iterdir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.iterdir" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iterdir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#jetraw.path.Path.iterdir" title="Link to this definition">¶</a></dt>
 <dd><p>Iterate over directory contents with optional filtering.</p>
 <p>Special case: iterdir() on root path (/) iterates over all spaces.</p>
 <dl class="field-list simple">
@@ -615,14 +669,13 @@ Note: Loads all contents from server and filters client-side.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>extension</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Filter by extension (e.g., “.tiff”, “<a href="#id3"><span class="problematic" id="id4">*</span></a>.tiff”, “tiff”)</p></li>
 <li><p><strong>file_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Filter by type (“file”, “folder/directory”, “image”)</p></li>
-<li><p><strong>return_paths</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If True, return Path objects; if False, return strings</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>Union[str, Path]</em> – Filtered items</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#jetraw.path.Path" title="jetraw.path.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Self</span></code>]</span></p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -701,7 +754,7 @@ Note: Loads all contents from server and filters client-side.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="jetraw.path.Path.name">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#jetraw.path.Path.name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#jetraw.path.Path.name" title="Link to this definition">¶</a></dt>
 <dd><p>Get the name of the file, directory, or space.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -720,7 +773,7 @@ Note: Loads all contents from server and filters client-side.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="jetraw.path.Path.parent">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#jetraw.path.Path" title="jetraw.path.Path"><span class="pre">Path</span></a></em><a class="headerlink" href="#jetraw.path.Path.parent" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Self</span></em><a class="headerlink" href="#jetraw.path.Path.parent" title="Link to this definition">¶</a></dt>
 <dd><p>Get the parent directory path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -767,7 +820,7 @@ Note: Loads all contents from server and filters client-side.</p>
 <dd><p>Rename this path to a target path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#jetraw.path.Path" title="jetraw.path.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – The new path name</p>
+<dd class="field-odd"><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Self</span></code></span>) – The new path name</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The renamed path</p>
@@ -799,7 +852,7 @@ Note: Loads all contents from server and filters client-side.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="jetraw.path.Path.root">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root</span></span><a class="headerlink" href="#jetraw.path.Path.root" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#jetraw.path.Path.root" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -808,7 +861,7 @@ Note: Loads all contents from server and filters client-side.</p>
 <dd><p>Check if two paths reference the same file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other_path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#jetraw.path.Path" title="jetraw.path.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – Another Path object to compare</p>
+<dd class="field-odd"><p><strong>other_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Self</span></code></span>) – Another Path object to compare</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if both paths reference the same file</p>
@@ -883,7 +936,7 @@ Note: Loads all contents from server and filters client-side.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="jetraw.path.Path.stem">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stem</span></span><a class="headerlink" href="#jetraw.path.Path.stem" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stem</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#jetraw.path.Path.stem" title="Link to this definition">¶</a></dt>
 <dd><p>Get the filename without the last extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -902,7 +955,7 @@ Note: Loads all contents from server and filters client-side.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="jetraw.path.Path.suffix">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">suffix</span></span><a class="headerlink" href="#jetraw.path.Path.suffix" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#jetraw.path.Path.suffix" title="Link to this definition">¶</a></dt>
 <dd><p>Get the file extension including the leading dot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -921,7 +974,7 @@ Note: Loads all contents from server and filters client-side.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="jetraw.path.Path.suffixes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">suffixes</span></span><a class="headerlink" href="#jetraw.path.Path.suffixes" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">suffixes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jetraw.path.Path.suffixes" title="Link to this definition">¶</a></dt>
 <dd><p>Get all file extensions as a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -988,12 +1041,12 @@ Note: Loads all contents from server and filters client-side.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="jetraw.spaces.html">
+          <a class="next-page" href="jetraw.trash.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">jetraw.spaces module</div>
+                <div class="title">jetraw.trash module</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -1021,7 +1074,7 @@ Note: Loads all contents from server and filters client-side.</p>
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="#" aria-label="Last update">Last update on 2026-01-26</a>
+              <a class="muted-link " href="#" aria-label="Last update">Last update on 2026-07-09</a>
               
             </div>
           </div>

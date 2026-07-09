@@ -1,0 +1,91 @@
+Getting TIFF File Metadata
+============================
+
+This example demonstrates how to retrieve metadata from an opened TIFF file using the
+``dp_tiff`` handle.
+
+The Jetraw TIFF library provides convenient functions to get image dimensions and page
+count from an opened TIFF file without reading the image data.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "jetraw_tiff/jetraw_tiff.h"
+   #include "jetraw/dp_status.h"
+   #include <iostream>
+
+   int main() {
+       // Initialize Jetraw TIFF library
+       jetraw_tiff_init();
+       jetraw_tiff_set_license("");
+
+       // Open TIFF file
+       dp_tiff* handle = nullptr;
+       dp_status status = jetraw_tiff_open(
+           "./compressed.tiff",
+           0,  // Dimensions not needed when reading metadata
+           0,
+           "",
+           &handle,
+           "r"
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Failed to open TIFF file: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Get image dimensions
+       int width = jetraw_tiff_get_width(handle);
+       int height = jetraw_tiff_get_height(handle);
+       int numPages = jetraw_tiff_get_pages(handle);
+
+       std::cout << "Image dimensions: " << width << " × " << height << "\n";
+       std::cout << "Number of pages: " << numPages << "\n";
+
+       // Use dimensions to allocate appropriate buffers
+       int32_t pixels = width * height;
+       std::vector<uint16_t> imageBuffer(pixels);
+
+       // Now you can read pages with the correct buffer size
+       for (int page = 0; page < numPages; ++page) {
+           jetraw_tiff_read_page(handle, imageBuffer.data(), page);
+           // Process image...
+       }
+
+       // Close the file
+       jetraw_tiff_close(&handle);
+
+       return 0;
+   }
+
+When to Use
+-----------
+
+These metadata functions are particularly useful when:
+
+- You don't know the image dimensions beforehand
+- You need to allocate buffers based on actual file dimensions
+- You want to verify file properties before processing
+- You're working with multi-page TIFF files and need to know the page count
+
+Notes
+-----
+
+- These functions can only be called on an opened TIFF file handle.
+- The dimensions apply to all pages in a multi-page TIFF (all pages have the same size).
+- If the handle is invalid or the file is not properly opened, the functions may return
+  incorrect values.
+
+See Also
+--------
+
+- :c:func:`jetraw_tiff_get_width`
+- :c:func:`jetraw_tiff_get_height`
+- :c:func:`jetraw_tiff_get_pages`
+- :doc:`reading_tiff` for reading TIFF files
+- :doc:`../c_libraries` for complete API reference
+

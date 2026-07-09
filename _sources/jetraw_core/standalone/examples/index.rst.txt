@@ -1,0 +1,36 @@
+Usage Examples
+==============
+
+This section provides practical code examples for the Jetraw Standalone
+library. All examples include the single public header:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+
+Setup
+-----
+
+.. toctree::
+   :maxdepth: 1
+
+   setting_up_license
+   using_calibration_files
+   creating_custom_profiles
+
+Compression and Decompression
+-----------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   compressing_and_decompressing
+
+Metadata and Diagnostics
+------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   reading_image_metadata
+   error_handling

@@ -1,0 +1,78 @@
+Compressing to Memory Buffer
+=============================
+
+This example demonstrates how to compress an image to a memory buffer without saving
+it to a file.
+
+Use ``jetraw_encode()`` when you want to compress an image to a memory buffer for
+further processing, network transmission, or custom storage solutions.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/jetraw.h"
+   #include "jetraw/dp_status.h"
+   #include <memory>
+   #include <iostream>
+
+   int main() {
+       // Assume image buffer is already loaded and prepared
+       uint16_t* imageBuffer;
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       // Allocate buffer for compressed data
+       // Rule of thumb: allocate at least half the size of uncompressed data
+       int32_t compressedSize = PIXELS / 2;
+       std::unique_ptr<char[]> compressedBuffer(new char[compressedSize]);
+
+       // Compress the image
+       dp_status status = jetraw_encode(
+           imageBuffer,
+           WIDTH,
+           HEIGHT,
+           compressedBuffer.get(),
+           &compressedSize
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Compression failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // On success, compressedSize contains the actual size of compressed data
+       std::cout << "Original size: " << (PIXELS * sizeof(uint16_t)) << " bytes\n";
+       std::cout << "Compressed size: " << compressedSize << " bytes\n";
+
+       // Use compressedBuffer for further processing, transmission, or storage
+       // ... rest of your code ...
+
+       return 0;
+   }
+
+Important Notes
+---------------
+
+- The image buffer must be prepared (using ``dpcore_prepare_image()`` or
+  ``dpcore_embed_meta()``) before compression.
+- The ``compressedSize`` parameter is both input (maximum buffer size) and output
+  (actual compressed size).
+- If the buffer is too small, the function will return an error. Allocate a buffer
+  at least half the size of the uncompressed data as a starting point.
+- The compressed data in ``compressedBuffer`` can be saved to a file, transmitted
+  over a network, or processed further.
+
+See Also
+--------
+
+- :c:func:`jetraw_encode`
+- :doc:`preparing_images` for image preparation
+- :doc:`efficient_preparation` for optimized preparation + compression workflow
+- :doc:`decompressing_buffer` for decompressing from a buffer
+- :doc:`../c_libraries` for complete API reference
+

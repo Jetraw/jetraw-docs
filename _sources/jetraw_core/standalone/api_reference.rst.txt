@@ -1,0 +1,505 @@
+API Reference
+=============
+
+.. c:namespace:: standalone
+
+This document provides a complete reference for the Jetraw Standalone C API.
+All functions are declared in the single public header ``jetraw_standalone.h``.
+
+Common Types
+------------
+
+All Jetraw Standalone functions report errors through the same ``dp_status``
+enum used by the Jetraw distribution. See the
+:doc:`C API Reference <../classic/c_libraries>` for the complete list of
+status codes.
+
+.. c:type:: dp_status
+
+   Enumeration type used by all Jetraw library functions to indicate operation
+   status. ``dp_success`` indicates that the function completed without
+   errors; all other values indicate an error.
+
+.. c:function:: const char* dp_status_description(dp_status status)
+
+   Returns a human-readable description of the given status code.
+
+   **Parameters:**
+
+   - ``status`` - The status code to get a description for
+
+   **Returns:**
+
+   A null-terminated string describing the status code. This string should not be freed by the caller.
+
+.. note::
+   Functions taking a file path use the ``CHARTYPE`` character type, which is
+   defined as ``wchar_t`` on Windows and ``char`` on all other platforms.
+
+Image Preparation
+-----------------
+
+Image preparation requires calibration parameters specific to the camera
+sensor used to capture the images. Parameters can be loaded from ``.dat``
+calibration files, or registered programmatically with
+``dpcore_set_emva_parameters()`` (see `Sensor Parameters (EMVA 1288)`_).
+
+dpcore_init
+~~~~~~~~~~~
+
+.. c:function:: int dpcore_init()
+
+   Try to load noise parameter files from default locations.
+
+   Default locations are the current working directory, as well as an OS-dependent user
+   data directory:
+
+   - Windows: ``%APPDATA%\dpcore``
+   - macOS: ``$HOME/Library/Application Support/dpcore``
+   - Linux: ``~/.config/dpcore``
+
+   Parameter files are expected to have the extension ``.dat``.
+
+   **Returns:**
+
+   The number of parameter files loaded.
+
+dpcore_set_loglevel
+~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: void dpcore_set_loglevel(int level)
+
+   Set logging verbosity. By default, log output is sent to stdout. It can be redirected
+   to a file by calling ``dpcore_set_logfile``.
+
+   **Parameters:**
+
+   - ``level`` - Logging level: 0=Off, 1=Informational, 2=Debugging
+
+dpcore_set_logfile
+~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_set_logfile(const CHARTYPE* file_path)
+
+   Write log output to file instead of to stdout. The log output will be written to the
+   end of the file, i.e., the file is not overwritten.
+
+   **Parameters:**
+
+   - ``file_path`` - Path to the log file
+
+   **Returns:**
+
+   - ``dp_success`` - if all goes well
+   - ``dp_file_write_error`` - on failure
+
+dpcore_load_parameters
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_load_parameters(const CHARTYPE* file_path)
+
+   Manually load noise parameters from a file.
+
+   **Parameters:**
+
+   - ``file_path`` - Path to the calibration parameter file (``.dat`` file)
+
+   **Returns:**
+
+   - ``dp_success`` - if parameters were successfully retrieved
+   - ``dp_file_read_error`` - if the file could not be opened or read
+   - ``dp_file_corrupt`` - if the file could not be parsed
+
+dpcore_prepare_image
+~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_prepare_image(uint16_t* imgbuf, int32_t imgsize, const char* identifier)
+
+   Prepare an image for efficient lossless compression, using the default
+   error bound of 1.0 (in units of standard deviations).
+
+   .. note::
+      An image that already was prepared will not be modified a second time. Still,
+      the function will return ``dp_success``.
+
+   **Parameters:**
+
+   - ``imgbuf`` - Contains the pixel values that will be overwritten by the preparation procedure
+   - ``imgsize`` - Number of pixels in the image
+   - ``identifier`` - Used to look up preparation parameters (calibration identifier)
+
+   **Returns:**
+
+   - ``dp_success`` - if the image data was prepared now or previously
+   - ``dp_unknown_identifier`` - if no parameters could be found for the given identifier
+   - ``dp_memory_error`` - if not enough memory could be allocated for the preparation
+   - ``dp_image_too_small`` - if there are not enough pixels for reliable preparation
+
+dpcore_prepare_image_with_bound
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_prepare_image_with_bound(uint16_t* imgbuf, int32_t imgsize, const char* identifier, float error_bound)
+
+   Same as ``dpcore_prepare_image``, but with a custom error bound.
+
+   In general, one should strongly prefer ``dpcore_prepare_image``, which uses
+   an error bound of 1.0 (in units of standard deviations).
+
+   **Parameters:**
+
+   - ``imgbuf`` - Contains the pixel values that will be overwritten by the preparation procedure
+   - ``imgsize`` - Number of pixels in the image
+   - ``identifier`` - Used to look up preparation parameters (calibration identifier)
+   - ``error_bound`` - Maximum pixel modification in units of standard deviations
+
+   **Returns:**
+
+   - ``dp_success`` - if the image data was prepared now or previously
+   - ``dp_unknown_identifier`` - if no parameters could be found for the given identifier
+   - ``dp_memory_error`` - if not enough memory could be allocated for the preparation
+   - ``dp_image_too_small`` - if there are not enough pixels for reliable preparation
+
+dpcore_embed_meta
+~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_embed_meta(uint16_t* imgbuf, int32_t imgsize, const char* identifier)
+
+   Prepare an image for efficient lossless compression, but instead of performing the
+   full noise replacement, only the metadata is embedded. This can be useful in
+   situations where the image data is going to be compressed immediately and avoids
+   redundant quantization/de-quantization. Uses the default error bound of 1.0
+   (in units of standard deviations).
+
+   .. note::
+      An image that already was prepared will not be modified a second time. Still,
+      the function will return ``dp_success``.
+
+   **Parameters:**
+
+   - ``imgbuf`` - Contains the pixel values that will be overwritten by the preparation procedure
+   - ``imgsize`` - Number of pixels in the image
+   - ``identifier`` - Used to look up preparation parameters (calibration identifier)
+
+   **Returns:**
+
+   - ``dp_success`` - if the image data was prepared now or previously
+   - ``dp_unknown_identifier`` - if no parameters could be found for the given identifier
+   - ``dp_memory_error`` - if not enough memory could be allocated for the preparation
+   - ``dp_image_too_small`` - if there are not enough pixels for reliable preparation
+
+dpcore_embed_meta_with_bound
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_embed_meta_with_bound(uint16_t* imgbuf, int32_t imgsize, const char* identifier, float error_bound)
+
+   Same as ``dpcore_embed_meta``, but with a custom error bound.
+
+   In general, one should strongly prefer ``dpcore_embed_meta``, which uses an
+   error bound of 1.0 (in units of standard deviations).
+
+   **Parameters:**
+
+   - ``imgbuf`` - Contains the pixel values that will be overwritten by the preparation procedure
+   - ``imgsize`` - Number of pixels in the image
+   - ``identifier`` - Used to look up preparation parameters (calibration identifier)
+   - ``error_bound`` - Maximum pixel modification in units of standard deviations
+
+   **Returns:**
+
+   - ``dp_success`` - if the image data was prepared now or previously
+   - ``dp_unknown_identifier`` - if no parameters could be found for the given identifier
+   - ``dp_memory_error`` - if not enough memory could be allocated for the preparation
+   - ``dp_image_too_small`` - if there are not enough pixels for reliable preparation
+
+dpcore_identifier_count
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: int dpcore_identifier_count()
+
+   Return the number of registered camera identifiers.
+
+   **Returns:**
+
+   The number of registered camera identifiers.
+
+dpcore_get_identifiers
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_get_identifiers(char* buf, int* bufsize)
+
+   Write list of camera identifiers to preallocated buffer.
+
+   **Parameters:**
+
+   - ``buf`` - Output buffer. Cannot be null. When the function succeeds, the buffer contains a sequential list of null-terminated identifiers
+   - ``bufsize`` - Pointer to the size of buf (in bytes). When the function returns, error or not, the pointee will contain the total number of bytes needed for all identifiers, including null-terminators. Hence, calling the function with ``*bufsize = 0`` allows to determine the required size of buf
+
+   **Returns:**
+
+   - ``dp_success`` - if all went well
+   - ``dp_parameter_error`` - if bufsize is null
+   - ``dp_memory_error`` - if buffer is too small or buf is null
+
+Sensor Parameters (EMVA 1288)
+-----------------------------
+
+Jetraw Standalone can work with sensor characterization parameters following
+the `EMVA 1288 standard <https://www.emva.org/standards-technology/emva-1288/>`_
+directly. Registering parameters with ``dpcore_set_emva_parameters()``
+replaces the need for a ``.dat`` calibration file when the sensor parameters
+are known. Parameters embedded during image preparation can also be read back
+from prepared images and from compressed buffers.
+
+JetrawCFAType
+~~~~~~~~~~~~~
+
+.. c:enum:: JetrawCFAType
+
+   Color filter array (CFA) pattern of a sensor. Identifies the Bayer mosaic
+   layout used by the camera, or indicates a monochrome sensor with no CFA.
+
+   - ``kMono`` (0) - Monochrome sensor, no CFA
+   - ``kBayerRG`` (4) - Bayer pattern starting with R,G on the top row
+   - ``kBayerGR`` (5) - Bayer pattern starting with G,R on the top row
+   - ``kBayerBG`` (6) - Bayer pattern starting with B,G on the top row
+   - ``kBayerGB`` (7) - Bayer pattern starting with G,B on the top row
+   - ``kOther`` (255) - Other type of CFA
+
+JetrawEMVAParameters
+~~~~~~~~~~~~~~~~~~~~
+
+.. c:struct:: JetrawEMVAParameters
+
+   Sensor characterization parameters following the EMVA 1288 standard.
+   Describes the radiometric and noise properties of a camera sensor, used by
+   Jetraw to model and compress raw image data accurately. All fields refer to
+   a single, fixed sensor configuration (gain setting, bit depth, CFA pattern,
+   etc.).
+
+   **Members:**
+
+   - ``float gain`` - System gain in digital numbers per electron (DN/e-)
+   - ``float black_level`` - Sensor black level, in digital numbers (DN)
+   - ``float readout_noise`` - Temporal dark noise, in DN RMS
+   - ``uint32_t pixel_max`` - Maximum valid pixel value (saturation), in DN
+   - ``JetrawCFAType cfa`` - Color filter array pattern of the sensor
+
+dpcore_get_emva_parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_get_emva_parameters(const char* identifier, JetrawEMVAParameters* params)
+
+   Look up EMVA 1288 sensor parameters by camera identifier. Retrieves the
+   sensor characterization parameters associated with a known camera/sensor
+   configuration from the parameter registry. The identifier is typically the
+   calibration string that uniquely names a sensor model and operating mode.
+
+   **Parameters:**
+
+   - ``identifier`` - Null-terminated string naming the camera configuration to look up. Must not be null
+   - ``params`` - Destination struct that receives the parameters on success. Must not be null. Its contents are unspecified on failure
+
+   **Returns:**
+
+   - ``dp_success`` - on success
+   - ``dp_parameter_error`` - if any passed pointer is null
+   - ``dp_unknown_identifier`` - if the identifier could not be found in the registry
+
+dpcore_set_emva_parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status dpcore_set_emva_parameters(const JetrawEMVAParameters* params, const char* identifier)
+
+   Register EMVA 1288 sensor parameters under a given camera identifier.
+   Stores the sensor characterization parameters in the parameter registry.
+   The identifier can then be used with ``dpcore_prepare_image`` and
+   ``dpcore_embed_meta``.
+
+   **Parameters:**
+
+   - ``params`` - The parameters to be stored. Must not be null
+   - ``identifier`` - Null-terminated string naming the camera configuration for later look up. Must not be null
+
+   **Returns:**
+
+   - ``dp_success`` - on success
+   - ``dp_parameter_error`` - if any passed pointer is null, or if an identifier of that name already exists
+
+jetraw_read_emva_params
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status jetraw_read_emva_params(const uint16_t* image, size_t image_size, JetrawEMVAParameters* params)
+
+   Extract EMVA 1288 sensor parameters from a raw image buffer. The image is
+   expected to be a single frame of 16-bit pixel data that has been processed
+   by ``dpcore_prepare_image`` or ``dpcore_embed_meta``, or, equivalently,
+   decompressed with Jetraw.
+
+   **Parameters:**
+
+   - ``image`` - Pointer to the raw 16-bit pixel buffer. Must not be null
+   - ``image_size`` - Number of pixels (not bytes) in ``image``
+   - ``params`` - Destination struct that receives the extracted parameters on success. Must not be null. Its contents are unspecified on failure
+
+   **Returns:**
+
+   - ``dp_success`` - on success
+   - ``dp_bad_image`` - if no embedded parameters were found
+   - ``dp_parameter_error`` - if any of the pointers are null
+
+jetraw_read_encoded_emva_params
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status jetraw_read_encoded_emva_params(const char* compressed, size_t compressed_size, JetrawEMVAParameters* params)
+
+   Extract EMVA 1288 sensor parameters from a Jetraw-compressed buffer.
+   Equivalent to ``jetraw_read_emva_params``, but operates directly on a
+   Jetraw-compressed bitstream without requiring the caller to decode it
+   first. The parameters are read from the compressed frame's metadata and/or
+   recovered from its payload.
+
+   **Parameters:**
+
+   - ``compressed`` - Pointer to the Jetraw-compressed buffer. Must not be null
+   - ``compressed_size`` - Size of ``compressed``, in bytes
+   - ``params`` - Destination struct that receives the extracted parameters on success. Must not be null. Its contents are unspecified on failure
+
+   **Returns:**
+
+   - ``dp_success`` - on success
+   - ``dp_file_corrupt`` - if the compressed buffer could not be parsed
+   - ``dp_parameter_error`` - if any of the pointers are null
+
+Compression and Decompression
+-----------------------------
+
+jetraw_encode
+~~~~~~~~~~~~~
+
+.. c:function:: dp_status jetraw_encode(const uint16_t* image, uint32_t width, uint32_t height, char* output, int32_t* output_size)
+
+   Compresses a prepared image with Jetraw.
+
+   **Parameters:**
+
+   - ``image`` - Pointer to the pixel data of the image that should be compressed. Must not be null
+   - ``width`` - Width of the image in pixels
+   - ``height`` - Height of the image in pixels
+   - ``output`` - Pointer to output buffer. Must not be null
+   - ``output_size`` - On input, specifies the size of the output buffer in bytes. Should be at least half the size of the uncompressed data. On output, holds the number of bytes actually written. Must not be null
+
+   **Returns:**
+
+   - ``dp_success`` - if successful
+   - ``dp_not_initialized`` - if the image data was not prepared for Jetraw compression
+   - ``dp_parameter_error`` - if one of the pointers is null
+   - ``dp_license_error`` - if no valid license was found
+   - ``dp_memory_error`` - if memory allocation failed
+
+jetraw_decode
+~~~~~~~~~~~~~
+
+.. c:function:: dp_status jetraw_decode(const char* compressed, int32_t compressed_size, uint16_t* output_image, int32_t output_size)
+
+   Decompresses an image with Jetraw.
+
+   **Parameters:**
+
+   - ``compressed`` - Pointer to the buffer containing the compressed image data. Must not be null
+   - ``compressed_size`` - Size of compressed data in bytes
+   - ``output_image`` - Pointer to a pre-allocated buffer for the decompressed image. Must not be null
+   - ``output_size`` - The maximum number of pixels that can be written to ``output_image``
+
+   **Returns:**
+
+   - ``dp_success`` - if successful
+   - ``dp_bad_image`` - if the data passed does not contain a Jetraw-compressed image
+   - ``dp_parameter_error`` - if one of the pointers is null
+   - ``dp_image_too_small`` - if ``output_size`` is smaller than the number of pixels of the compressed image
+   - ``dp_memory_error`` - if memory allocation failed
+
+jetraw_read_encoded_dimensions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: dp_status jetraw_read_encoded_dimensions(const char* compressed, size_t compressed_size, uint32_t* width, uint32_t* height)
+
+   Read image dimensions from a compressed buffer. The dimensions can be used
+   to allocate an image buffer for a decompressed image.
+
+   **Parameters:**
+
+   - ``compressed`` - Pointer to compressed buffer
+   - ``compressed_size`` - Size of the compressed buffer
+   - ``width`` - Holds the returned width
+   - ``height`` - Holds the returned height
+
+   **Returns:**
+
+   - ``dp_success`` - if image dimensions were successfully read
+   - ``dp_bad_image`` - if parsing of the buffer failed
+   - ``dp_file_corrupt`` - if parsing of the buffer failed
+   - ``dp_parameter_error`` - if width or height are null
+
+jetraw_version
+~~~~~~~~~~~~~~
+
+.. c:function:: const char* jetraw_version()
+
+   Returns the current Jetraw version.
+
+   **Returns:**
+
+   A null-terminated string containing the version information. This string should not be freed by the caller.
+
+License Management
+------------------
+
+jetraw_set_license_key
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: bool jetraw_set_license_key(const char* key)
+
+   Sets the license key to be used.
+
+   If the key is set to an empty string, Jetraw will look for the license key
+   in a file ``license.txt``, which should be placed in the following
+   directory:
+
+   - macOS: ``$HOME/Library/Application Support/jetraw``
+   - Windows: ``%APPDATA%\jetraw``
+   - Linux: ``~/.config/jetraw``
+
+   **Parameters:**
+
+   - ``key`` - A null-terminated license key string, or empty string to use the default location. Passing a null pointer will always return ``false``
+
+   **Returns:**
+
+   ``true`` if the key could be validated.
+
+jetraw_set_license_data
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: bool jetraw_set_license_data(const char* lic_json, size_t len)
+
+   Sets license data to be used for offline license validation. Once set, no
+   further attempts will be made to find a valid license (key) on disk, until
+   ``jetraw_unset_license_data`` is called.
+
+   **Parameters:**
+
+   - ``lic_json`` - Pointer to the license data string
+   - ``len`` - Size of the license data in bytes
+
+   **Returns:**
+
+   ``true`` if the license data is valid.
+
+jetraw_unset_license_data
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. c:function:: void jetraw_unset_license_data()
+
+   Clear in-memory license data. Data for offline licenses will be loaded from
+   default locations on disk. If no offline license is found, an online
+   license check will take place.

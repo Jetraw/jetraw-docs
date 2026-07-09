@@ -1,0 +1,69 @@
+Jetraw UI
+=========
+
+Jetraw UI is a desktop application for Windows and macOS that provides a graphical
+interface for managing licenses, device calibrations, and compressing or decompressing
+TIFF files. For installation instructions, see :doc:`installation`.
+
+Using Jetraw UI
+---------------
+
+On Windows and macOS, Jetraw comes with a graphical user interface where you can
+easily enter and check your license data, install and view device calibrations, and
+compress or decompress TIFF files.
+
+.. image:: ../../_static/jetraw-ui_macos.png
+   :alt: Screenshot of JetrawUI on macOS
+
+License setup
+~~~~~~~~~~~~~
+
+To enter your license key:
+
+1. Open Jetraw UI
+2. Click on the "License" menu item in the left sidebar
+3. Enter your license key in the provided field
+4. The license will be saved automatically to the correct location
+
+For more information about license file locations, see :doc:`installation`.
+
+Adding device calibrations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To add support for a camera:
+
+1. Click on "Devices" in the left sidebar
+2. Drag and drop the calibration file (``.dat`` extension) that you received onto
+   the right panel
+3. A new device should appear in the list
+
+The calibration file contains the camera-specific parameters needed for image
+preparation. For information about calibration file locations, see :doc:`installation`.
+
+Compressing and decompressing files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To compress or decompress TIFF files:
+
+1. Open the compression panel by clicking on it in the left sidebar
+2. Drag and drop TIFF files into the file area, or click to browse and select files
+3. Choose the action: *compress* or *decompress*
+4. For compression, select the identifier that matches your camera settings (the
+   identifier corresponds to the device calibration you installed)
+5. Choose a destination directory
+6. Click the "Go" button to start processing
+
+.. note::
+   In Jetraw UI, noise replacement (image preparation) is done automatically if
+   necessary. When using the command line, two separate commands offer more
+   fine-grained control. See :doc:`cli` for command-line usage.
+
+The UI will process the files and display progress information. Once complete, the
+processed files will be available in the destination directory you specified.
+
+Platform availability
+---------------------
+
+Jetraw UI is available for Windows and macOS. On Linux, only the command-line
+utilities and development libraries are provided. For Linux users, see :doc:`cli` for
+instructions on using the command-line tools.

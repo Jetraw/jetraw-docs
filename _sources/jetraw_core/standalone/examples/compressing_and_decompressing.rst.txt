@@ -1,0 +1,113 @@
+Compressing and Decompressing Buffers
+=====================================
+
+.. c:namespace:: standalone
+
+This example shows a complete compression round trip on raw pixel buffers:
+prepare the image, compress it, and decompress it again. It assumes that a
+license and a calibration identifier have been set up (see
+:doc:`setting_up_license`, :doc:`using_calibration_files` and
+:doc:`creating_custom_profiles`).
+
+Compressing
+-----------
+
+An image must be prepared before it can be compressed. Preparation happens
+in-place; compression writes into a caller-provided output buffer, which
+should be at least half the size of the uncompressed data:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <cstdint>
+   #include <iostream>
+   #include <vector>
+
+   int main() {
+       const uint32_t width = 2048;
+       const uint32_t height = 2048;
+
+       // Image data loaded as 16-bit pixel values
+       std::vector<uint16_t> image(width * height);
+       // ... fill with data from the camera ...
+
+       // Prepare the image in-place
+       dp_status status = dpcore_prepare_image(
+           image.data(), width * height, "calibration-identifier");
+       if (status != dp_success) {
+           std::cerr << "Preparation failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Allocate the output buffer: half the uncompressed size
+       // (width * height pixels of 2 bytes each)
+       std::vector<char> compressed(width * height);
+       int32_t compressed_size = static_cast<int32_t>(compressed.size());
+
+       status = jetraw_encode(image.data(), width, height,
+                              compressed.data(), &compressed_size);
+       if (status != dp_success) {
+           std::cerr << "Compression failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // compressed_size now holds the number of bytes actually written
+       std::cout << "Compressed to " << compressed_size << " bytes\n";
+   }
+
+Decompressing
+-------------
+
+Decompression writes the pixel data into a pre-allocated buffer. If the
+image dimensions are not known, they can be read from the compressed buffer
+first (see :doc:`reading_image_metadata`):
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <cstdint>
+   #include <iostream>
+   #include <vector>
+
+   int main() {
+       // Compressed data, e.g. received over the network
+       const char* compressed = /* ... */;
+       int32_t compressed_size = /* ... */;
+
+       uint32_t width = 0;
+       uint32_t height = 0;
+       jetraw_read_encoded_dimensions(compressed, compressed_size, &width, &height);
+
+       std::vector<uint16_t> image(width * height);
+       dp_status status = jetraw_decode(compressed, compressed_size,
+                                        image.data(), width * height);
+       if (status != dp_success) {
+           std::cerr << "Decompression failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+   }
+
+Notes
+-----
+
+- Compressing an image that was not prepared fails with
+  ``dp_not_initialized``.
+- Compression requires a valid license (``dp_license_error`` otherwise);
+  decompression does not.
+- An image that was already prepared is not modified by a second preparation
+  call, which still returns ``dp_success``.
+- If the image is compressed immediately after preparation,
+  :c:func:`dpcore_embed_meta` can be used instead of
+  :c:func:`dpcore_prepare_image` to avoid redundant
+  quantization/de-quantization.
+
+See Also
+--------
+
+- :c:func:`dpcore_prepare_image`
+- :c:func:`jetraw_encode`
+- :c:func:`jetraw_decode`
+- :doc:`reading_image_metadata`

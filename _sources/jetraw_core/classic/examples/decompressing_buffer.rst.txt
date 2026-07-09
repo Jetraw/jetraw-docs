@@ -1,0 +1,124 @@
+Decompressing from Memory Buffer
+=================================
+
+This example demonstrates how to decompress an image from a memory buffer without
+reading from a file.
+
+Use ``jetraw_decode()`` when you have compressed data in memory (e.g., from network
+transmission, custom storage, or a buffer) and want to decompress it directly.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "jetraw/jetraw.h"
+   #include "jetraw/dp_status.h"
+   #include <memory>
+   #include <vector>
+   #include <iostream>
+
+   int main() {
+       // Assume you have compressed data in a buffer
+       char* compressedBuffer;
+       int32_t compressedSize;  // Size of compressed data in bytes
+
+       // Expected image dimensions
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       // Allocate buffer for decompressed image
+       std::vector<uint16_t> decompressedImage(PIXELS);
+
+       // Decompress the image
+       dp_status status = jetraw_decode(
+           compressedBuffer,
+           compressedSize,
+           decompressedImage.data(),
+           PIXELS
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Decompression failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Image is now decompressed and ready for use
+       // decompressedImage contains the original image data
+       // ... rest of your code ...
+
+       return 0;
+   }
+
+Complete Example with Buffer Management
+----------------------------------------
+
+Here's a more complete example showing buffer management:
+
+.. code-block:: cpp
+
+   #include "jetraw/jetraw.h"
+   #include "jetraw/dp_status.h"
+   #include <memory>
+   #include <vector>
+   #include <iostream>
+   #include <fstream>
+
+   int main() {
+       // Read compressed data from a file (or receive from network, etc.)
+       std::ifstream file("compressed.bin", std::ios::binary);
+       if (!file) {
+           std::cerr << "Failed to open compressed file\n";
+           return 1;
+       }
+
+       // Get file size
+       file.seekg(0, std::ios::end);
+       int32_t compressedSize = file.tellg();
+       file.seekg(0, std::ios::beg);
+
+       // Read compressed data
+       std::vector<char> compressedBuffer(compressedSize);
+       file.read(compressedBuffer.data(), compressedSize);
+
+       // Decompress
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+       std::vector<uint16_t> decompressedImage(PIXELS);
+
+       dp_status status = jetraw_decode(
+           compressedBuffer.data(),
+           compressedSize,
+           decompressedImage.data(),
+           PIXELS
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Decompression failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Use decompressedImage...
+       return 0;
+   }
+
+Important Notes
+---------------
+
+- The ``imgPixels`` parameter specifies the maximum number of pixels that can be
+  written to the output buffer. It must be at least as large as the compressed image.
+- If ``imgPixels`` is too small, the function will return ``dp_image_too_small``.
+- The decompressed image data is written directly to the provided buffer.
+
+See Also
+--------
+
+- :c:func:`jetraw_decode`
+- :doc:`compressing_buffer` for compressing to a buffer
+- :doc:`reading_tiff` for reading from TIFF files
+- :doc:`../c_libraries` for complete API reference
+

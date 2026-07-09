@@ -1,0 +1,100 @@
+Using Calibration Files
+=======================
+
+.. c:namespace:: standalone
+
+Image preparation requires sensor calibration parameters. When Dotphoton has
+provided camera-specific ``.dat`` calibration files, they can be used with
+Jetraw Standalone exactly as with the Jetraw distribution.
+
+Loading from the default locations
+----------------------------------
+
+``dpcore_init()`` scans the current working directory and the OS-specific
+user data directory (see :doc:`Installation <../../classic/installation>`)
+for ``.dat`` files:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       int loaded = dpcore_init();
+       if (loaded == 0) {
+           std::cerr << "No calibration files found.\n";
+           return 1;
+       }
+       std::cout << "Loaded " << loaded << " calibration file(s).\n";
+   }
+
+Loading a specific file
+-----------------------
+
+Calibration files can also be loaded from an explicit path:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       dp_status status = dpcore_load_parameters("./calibration.dat");
+       if (status != dp_success) {
+           std::cerr << "Failed to load calibration file: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+   }
+
+Listing the available identifiers
+---------------------------------
+
+Each calibration file contains one or more calibration identifiers, grouping
+parameters such as conversion gain and black level for a specific sensor
+configuration. The registered identifiers can be listed as follows:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <cstring>
+   #include <iostream>
+   #include <vector>
+
+   int main() {
+       dpcore_init();
+
+       std::cout << dpcore_identifier_count() << " identifier(s) registered\n";
+
+       // First call with *bufsize = 0 to determine the required buffer size
+       int bufsize = 0;
+       dpcore_get_identifiers(nullptr, &bufsize);
+
+       std::vector<char> buf(bufsize);
+       dp_status status = dpcore_get_identifiers(buf.data(), &bufsize);
+       if (status != dp_success) {
+           std::cerr << "Error: " << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // The buffer contains a sequential list of null-terminated identifiers
+       for (const char* p = buf.data(); p < buf.data() + bufsize; p += std::strlen(p) + 1) {
+           std::cout << p << '\n';
+       }
+   }
+
+Notes
+-----
+
+- The chosen identifier is passed to :c:func:`dpcore_prepare_image` (or
+  :c:func:`dpcore_embed_meta`) to prepare images.
+- If no calibration file is available, sensor parameters can instead be
+  registered in code; see :doc:`creating_custom_profiles`.
+
+See Also
+--------
+
+- :c:func:`dpcore_init`
+- :c:func:`dpcore_load_parameters`
+- :c:func:`dpcore_get_identifiers`
+- :doc:`creating_custom_profiles`

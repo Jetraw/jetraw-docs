@@ -1,0 +1,93 @@
+Setting Up the License
+======================
+
+.. c:namespace:: standalone
+
+A valid license is required for compression. Jetraw Standalone supports three
+ways of providing it, which can be freely combined with either calibration
+approach (files or custom profiles).
+
+Using a license file
+--------------------
+
+If a ``license.txt`` file is installed in the standard OS-specific location
+(see :doc:`Installation <../../classic/installation>`), no code is required:
+the license is looked up automatically. To validate it eagerly at startup,
+call ``jetraw_set_license_key`` with an empty string:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       // Validate the license from the default license.txt location
+       if (!jetraw_set_license_key("")) {
+           std::cerr << "License could not be validated.\n";
+           return 1;
+       }
+   }
+
+Setting the license key in code
+-------------------------------
+
+The license key can also be provided directly, without any file on disk:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       if (!jetraw_set_license_key("XXXX-XXXX-XXXX-XXXX")) {
+           std::cerr << "License key could not be validated.\n";
+           return 1;
+       }
+   }
+
+Using in-memory offline license data
+------------------------------------
+
+For systems without internet access — or without filesystem access — offline
+license data can be loaded into memory. Once set, no further attempts are
+made to find a license on disk until the data is cleared again:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       // License data obtained from Dotphoton, e.g. embedded in the firmware
+       // or received over the network
+       const char* lic_json = /* ... */;
+       size_t lic_len = /* ... */;
+
+       if (!jetraw_set_license_data(lic_json, lic_len)) {
+           std::cerr << "Offline license data is not valid.\n";
+           return 1;
+       }
+
+       // ... use the library ...
+
+       // Optional: revert to on-disk / online license lookup
+       jetraw_unset_license_data();
+   }
+
+Notes
+-----
+
+- By default, license validation requires an active internet connection. An
+  offline license can be requested from Dotphoton if this is an issue.
+- ``jetraw_set_license_key`` and ``jetraw_set_license_data`` return ``bool``
+  (not ``dp_status``): ``true`` means the license was validated.
+- If no license is set explicitly, validation happens on first use; a missing
+  or invalid license makes compression functions return ``dp_license_error``.
+
+See Also
+--------
+
+- :c:func:`jetraw_set_license_key`
+- :c:func:`jetraw_set_license_data`
+- :c:func:`jetraw_unset_license_data`
+- :doc:`../index` for an overview of the configuration options

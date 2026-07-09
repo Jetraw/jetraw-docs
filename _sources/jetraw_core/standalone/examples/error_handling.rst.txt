@@ -1,0 +1,59 @@
+Error Handling
+==============
+
+.. c:namespace:: standalone
+
+Most functions in the Jetraw Standalone API return a ``dp_status`` enum value
+indicating the operation's success or failure. Always check the return value,
+and use ``dp_status_description()`` to obtain a human-readable message.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int check(dp_status status, const char* context) {
+       if (status != dp_success) {
+           std::cerr << context << ": "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+       return 0;
+   }
+
+   int main() {
+       if (check(dpcore_load_parameters("./calibration.dat"), "load parameters"))
+           return 1;
+
+       // ... load image data ...
+
+       if (check(dpcore_prepare_image(image, num_pixels, "identifier"), "prepare"))
+           return 1;
+
+       int32_t compressed_size = static_cast<int32_t>(capacity);
+       if (check(jetraw_encode(image, width, height, compressed, &compressed_size),
+                 "encode"))
+           return 1;
+   }
+
+Notes
+-----
+
+- The complete list of status codes is documented in the
+  :doc:`C API Reference <../../classic/c_libraries>`.
+- A few functions do not return ``dp_status``: the license functions
+  :c:func:`jetraw_set_license_key` and :c:func:`jetraw_set_license_data`
+  return ``bool`` (``true`` on success), and :c:func:`dpcore_init` returns
+  the number of calibration files loaded.
+- Common error causes: ``dp_license_error`` (no valid license found),
+  ``dp_unknown_identifier`` (calibration identifier not registered),
+  ``dp_not_initialized`` (compressing an unprepared image).
+
+See Also
+--------
+
+- :c:func:`dp_status_description`
+- :doc:`../api_reference`

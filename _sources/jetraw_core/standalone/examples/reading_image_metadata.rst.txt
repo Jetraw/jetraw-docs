@@ -1,0 +1,110 @@
+Reading Image Metadata
+======================
+
+.. c:namespace:: standalone
+
+Jetraw-compressed buffers carry the image dimensions and the sensor
+parameters that were used during preparation. Prepared (or decompressed)
+images carry the sensor parameters embedded in the pixel data. Jetraw
+Standalone can read this metadata back without external bookkeeping.
+
+Reading dimensions from a compressed buffer
+-------------------------------------------
+
+The dimensions of a compressed image can be read directly from the buffer,
+which allows allocating the output buffer before decoding:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <cstdint>
+   #include <iostream>
+   #include <vector>
+
+   int main() {
+       const char* compressed = /* ... */;
+       size_t compressed_size = /* ... */;
+
+       uint32_t width = 0;
+       uint32_t height = 0;
+       dp_status status = jetraw_read_encoded_dimensions(
+           compressed, compressed_size, &width, &height);
+       if (status != dp_success) {
+           std::cerr << "Error: " << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       std::cout << "Image is " << width << " x " << height << " pixels\n";
+
+       std::vector<uint16_t> image(width * height);
+       jetraw_decode(compressed, static_cast<int32_t>(compressed_size),
+                     image.data(), width * height);
+   }
+
+Reading sensor parameters from a compressed buffer
+--------------------------------------------------
+
+The EMVA 1288 sensor parameters can be extracted directly from a compressed
+bitstream, without decoding it first:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       const char* compressed = /* ... */;
+       size_t compressed_size = /* ... */;
+
+       JetrawEMVAParameters params;
+       dp_status status = jetraw_read_encoded_emva_params(
+           compressed, compressed_size, &params);
+       if (status != dp_success) {
+           std::cerr << "Error: " << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       std::cout << "gain: " << params.gain << " DN/e-, "
+                 << "black level: " << params.black_level << " DN\n";
+   }
+
+Reading sensor parameters from an image buffer
+----------------------------------------------
+
+The same parameters can be extracted from a raw 16-bit image buffer that was
+processed by ``dpcore_prepare_image`` / ``dpcore_embed_meta``, or that was
+decompressed with Jetraw:
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <cstdint>
+   #include <iostream>
+
+   int main() {
+       const uint16_t* image = /* prepared or decompressed image */;
+       size_t num_pixels = /* ... */;
+
+       JetrawEMVAParameters params;
+       dp_status status = jetraw_read_emva_params(image, num_pixels, &params);
+       if (status == dp_bad_image) {
+           std::cerr << "No embedded parameters found - "
+                        "was the image prepared?\n";
+           return 1;
+       }
+   }
+
+Notes
+-----
+
+- ``jetraw_read_emva_params`` expects a single frame; pass the number of
+  pixels (not bytes).
+- Reading parameters from an unprepared image fails with ``dp_bad_image``.
+
+See Also
+--------
+
+- :c:func:`jetraw_read_encoded_dimensions`
+- :c:func:`jetraw_read_encoded_emva_params`
+- :c:func:`jetraw_read_emva_params`
+- :c:struct:`JetrawEMVAParameters`

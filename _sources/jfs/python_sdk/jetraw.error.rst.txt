@@ -1,0 +1,7 @@
+jetraw.error module
+===================
+
+.. automodule:: jetraw.error
+   :members:
+   :show-inheritance:
+   :undoc-members:

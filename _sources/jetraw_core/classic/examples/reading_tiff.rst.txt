@@ -1,0 +1,111 @@
+Reading Compressed TIFF Files
+===============================
+
+This example demonstrates how to read and decompress images from Jetraw-compressed
+TIFF files.
+
+To read a compressed TIFF file, open it in read mode and use ``jetraw_tiff_read_page()``
+to decompress individual pages.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "jetraw_tiff/jetraw_tiff.h"
+   #include "jetraw/dp_status.h"
+   #include <vector>
+   #include <iostream>
+
+   int main() {
+       // Initialize Jetraw TIFF library
+       jetraw_tiff_init();
+       jetraw_tiff_set_license("");
+
+       // Open TIFF file for reading
+       dp_tiff* handle = nullptr;
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       dp_status status = jetraw_tiff_open(
+           "./compressed.tiff",
+           WIDTH,
+           HEIGHT,
+           "Compressed TIFF file",
+           &handle,
+           "r"  // "r" for read mode
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Failed to open TIFF file: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Get number of pages in the file
+       int numPages = jetraw_tiff_get_pages(handle);
+       std::cout << "File contains " << numPages << " pages\n";
+
+       // Allocate buffer for decompressed image
+       std::vector<uint16_t> decompressedImage(PIXELS);
+
+       // Read and decompress the first page (page index 0)
+       status = jetraw_tiff_read_page(handle, decompressedImage.data(), 0);
+       if (status != dp_success) {
+           std::cerr << "Failed to read page: "
+                     << dp_status_description(status) << '\n';
+           jetraw_tiff_close(&handle);
+           return 1;
+       }
+
+       // Read additional pages if needed
+       for (int page = 1; page < numPages; ++page) {
+           // Allocate buffer for each page or reuse buffer
+           status = jetraw_tiff_read_page(handle, decompressedImage.data(), page);
+           if (status != dp_success) {
+               std::cerr << "Failed to read page " << page << ": "
+                         << dp_status_description(status) << '\n';
+               break;
+           }
+           // Process decompressedImage...
+       }
+
+       // Close the TIFF file
+       jetraw_tiff_close(&handle);
+
+       return 0;
+   }
+
+Getting File Dimensions
+-----------------------
+
+If you don't know the dimensions beforehand, you can get them from the opened file:
+
+.. code-block:: cpp
+
+   // Get dimensions from the file
+   int width = jetraw_tiff_get_width(handle);
+   int height = jetraw_tiff_get_height(handle);
+   int numPages = jetraw_tiff_get_pages(handle);
+
+   // Allocate buffer based on actual dimensions
+   std::vector<uint16_t> imageBuffer(width * height);
+
+Notes
+-----
+
+- Page indices are 0-based (first page is index 0).
+- The buffer must be large enough to hold the decompressed image data.
+- All pages in a multi-page TIFF have the same dimensions.
+
+See Also
+--------
+
+- :c:func:`jetraw_tiff_open`
+- :c:func:`jetraw_tiff_read_page`
+- :c:func:`jetraw_tiff_close`
+- :doc:`tiff_metadata` for getting file information
+- :doc:`multi_page_tiff` for handling multiple pages
+- :doc:`../c_libraries` for complete API reference
+

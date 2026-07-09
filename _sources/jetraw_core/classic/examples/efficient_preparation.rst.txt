@@ -1,0 +1,98 @@
+Efficient Preparation and Compression
+======================================
+
+This example demonstrates an optimized workflow for preparing and compressing images
+without performing full noise replacement.
+
+When you plan to compress an image immediately after preparation, you can use
+``dpcore_embed_meta()`` followed by ``jetraw_encode()`` to avoid redundant
+quantization/de-quantization steps. This is more efficient than using
+``dpcore_prepare_image()`` followed by compression.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/jetraw.h"
+   #include "jetraw/dp_status.h"
+   #include <memory>
+   #include <iostream>
+
+   int main() {
+       // Assume image buffer is already loaded
+       uint16_t* imageBuffer;
+       uint32_t WIDTH = 2560;
+       uint32_t HEIGHT = 2160;
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       // Step 1: Embed metadata only (avoids full noise replacement)
+       dp_status status = dpcore_embed_meta(
+           imageBuffer,
+           PIXELS,
+           "calibration_identifier",
+           1.0f  // error_bound
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Failed to embed metadata: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Step 2: Compress directly to memory buffer
+       // Allocate buffer for compressed data (rule of thumb: at least half the size)
+       int32_t compressedSize = PIXELS / 2;
+       std::unique_ptr<char[]> compressedBuffer(new char[compressedSize]);
+
+       status = jetraw_encode(
+           imageBuffer,
+           WIDTH,
+           HEIGHT,
+           compressedBuffer.get(),
+           &compressedSize
+       );
+
+       if (status != dp_success) {
+           std::cerr << "Compression failed: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // compressedSize now contains the actual size of compressed data
+       std::cout << "Compressed size: " << compressedSize << " bytes\n";
+
+       // Use compressedBuffer for further processing or save to file
+       // ... rest of your code ...
+   }
+
+Why This Is More Efficient
+---------------------------
+
+- ``dpcore_embed_meta()`` only embeds the calibration metadata without performing
+  full noise replacement.
+- ``jetraw_encode()`` can use this metadata directly during compression.
+- This avoids the quantization/de-quantization steps that would occur with
+  ``dpcore_prepare_image()`` followed by compression.
+
+When to Use
+-----------
+
+Use this approach when:
+- You plan to compress the image immediately after preparation
+- You don't need the fully prepared image for other processing
+- You want to minimize processing time
+
+Use ``dpcore_prepare_image()`` when:
+- You need to save or process the prepared image before compression
+- You want to decompress and use the prepared image later
+
+See Also
+--------
+
+- :c:func:`dpcore_embed_meta`
+- :c:func:`jetraw_encode`
+- :doc:`preparing_images` for standard preparation workflow
+- :doc:`compressing_buffer` for more details on buffer compression
+

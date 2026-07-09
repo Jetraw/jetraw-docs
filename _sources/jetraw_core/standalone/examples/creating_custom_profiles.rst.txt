@@ -1,0 +1,73 @@
+Creating Custom Calibration Profiles
+====================================
+
+.. c:namespace:: standalone
+
+Jetraw Standalone can register sensor calibration profiles directly in code,
+without any ``.dat`` file. This is useful when the sensor's characterization
+parameters — following the `EMVA 1288 standard
+<https://www.emva.org/standards-technology/emva-1288/>`_ — are known, e.g.
+from the camera datasheet or from your own characterization measurements, and
+is the way to configure calibration on systems without filesystem access.
+
+A profile consists of a ``JetrawEMVAParameters`` struct registered under an
+identifier of your choice. The identifier is then used for image preparation
+like any identifier loaded from a calibration file.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "jetraw_standalone.h"
+   #include <iostream>
+
+   int main() {
+       // Sensor characterization for one fixed configuration
+       // (gain setting, bit depth, CFA pattern)
+       JetrawEMVAParameters params;
+       params.gain = 0.45f;          // system gain in DN/e-
+       params.black_level = 100.0f;  // black level in DN
+       params.readout_noise = 1.6f;  // temporal dark noise in DN RMS
+       params.pixel_max = 65535;     // saturation value in DN
+       params.cfa = kBayerRG;        // Bayer pattern, R,G on the top row
+
+       dp_status status = dpcore_set_emva_parameters(&params, "my-camera-gain1");
+       if (status != dp_success) {
+           std::cerr << "Could not register profile: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // The identifier can now be used for image preparation
+       // dpcore_prepare_image(image_buffer, num_pixels, "my-camera-gain1");
+   }
+
+A registered profile can be read back at any time:
+
+.. code-block:: cpp
+
+   JetrawEMVAParameters check;
+   dp_status status = dpcore_get_emva_parameters("my-camera-gain1", &check);
+
+Notes
+-----
+
+- All fields refer to a single, fixed sensor configuration. If the camera is
+  operated at several gain settings, register one profile per setting, each
+  under its own identifier.
+- Registering an identifier that already exists fails with
+  ``dp_parameter_error``; choose a unique name per configuration.
+- Custom profiles are held in memory and live for the duration of the
+  process; they are not persisted to disk.
+- The quality of the compression depends directly on the accuracy of the
+  parameters. When in doubt, contact Dotphoton for a proper camera
+  calibration.
+
+See Also
+--------
+
+- :c:struct:`JetrawEMVAParameters`
+- :c:func:`dpcore_set_emva_parameters`
+- :c:func:`dpcore_get_emva_parameters`
+- :doc:`using_calibration_files` for the file-based alternative

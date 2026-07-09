@@ -1,0 +1,1094 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Command Line Interface" href="cli.html"><link rel="prev" title="Getting started" href="getting_started.html">
+        <link rel="canonical" href="https://docs.dotphoton.com/jetraw_core/classic/c_libraries.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>C API Reference - Jetraw Platform</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=cf8ed36e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">Jetraw Platform</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">Jetraw Platform</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Explore our documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Jetraw Core</a><input aria-label="Toggle navigation of Jetraw Core" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../workflow_overview.html">Workflow overview</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Jetraw</a><input aria-label="Toggle navigation of Jetraw" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">C API Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jetraw_ui.html">Jetraw UI</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="examples/index.html">Usage Examples</a><input aria-label="Toggle navigation of Usage Examples" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/initialization.html">Initialization and License Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/loading_calibration.html">Loading Calibration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/preparing_images.html">Preparing Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/efficient_preparation.html">Efficient Preparation and Compression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/compressing_buffer.html">Compressing to Memory Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/writing_tiff.html">Writing Compressed TIFF Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/reading_tiff.html">Reading Compressed TIFF Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/decompressing_buffer.html">Decompressing from Memory Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multi_page_tiff.html">Multi-page TIFF Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/tiff_metadata.html">Getting TIFF File Metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/error_handling.html">Error Handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../standalone/index.html">Jetraw Standalone</a><input aria-label="Toggle navigation of Jetraw Standalone" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../standalone/api_reference.html">API Reference</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../standalone/examples/index.html">Usage Examples</a><input aria-label="Toggle navigation of Usage Examples" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../standalone/examples/setting_up_license.html">Setting Up the License</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../standalone/examples/using_calibration_files.html">Using Calibration Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../standalone/examples/creating_custom_profiles.html">Creating Custom Calibration Profiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../standalone/examples/compressing_and_decompressing.html">Compressing and Decompressing Buffers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../standalone/examples/reading_image_metadata.html">Reading Image Metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../standalone/examples/error_handling.html">Error Handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../fpga.html">Jetraw Core FPGA implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../jfs/index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../jfs/gui/index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/gui/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/gui/usage.html">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/gui/faq.html">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../jfs/cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/cli/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/cli/usage.html">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../jfs/python_sdk/index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/python_sdk/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/python_sdk/authentication.html">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../jfs/python_sdk/getting-started.html">Getting started</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../jfs/python_sdk/jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../jfs/python_sdk/jetraw.client.html">jetraw.client module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jfs/python_sdk/jetraw.license.html">jetraw.license module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jfs/python_sdk/jetraw.links.html">jetraw.links module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jfs/python_sdk/jetraw.path.html">jetraw.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jfs/python_sdk/jetraw.trash.html">jetraw.trash module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../jfs/python_sdk/jetraw.users.html">jetraw.users module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/jetraw_core/classic/c_libraries.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="c-api-reference">
+<h1>C API Reference<a class="headerlink" href="#c-api-reference" title="Link to this heading">¶</a></h1>
+<p>This document provides a complete reference for the Jetraw C API libraries. The API
+consists of three main libraries:</p>
+<ul class="simple">
+<li><p><strong>DPCore</strong>: Image preparation library for preparing raw images before compression</p></li>
+<li><p><strong>Jetraw</strong>: Core compression and decompression library</p></li>
+<li><p><strong>Jetraw TIFF</strong>: Convenience library for working with TIFF files using Jetraw compression</p></li>
+</ul>
+<p>All libraries use a common error handling mechanism through the <code class="docutils literal notranslate"><span class="pre">dp_status</span></code> enum type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As an alternative to these libraries, a single self-contained library
+bundling image preparation and compression is available on request. It
+offers additional capabilities such as registering sensor calibration
+parameters programmatically. See <a class="reference internal" href="../standalone/index.html"><span class="doc">Jetraw Standalone</span></a>.</p>
+</div>
+<section id="common-types">
+<h2>Common Types<a class="headerlink" href="#common-types" title="Link to this heading">¶</a></h2>
+<section id="dp-status">
+<h3>dp_status<a class="headerlink" href="#dp-status" title="Link to this heading">¶</a></h3>
+<dl class="c type">
+<dt class="sig sig-object c" id="c.dp_status">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dp_status</span></span></span><a class="headerlink" href="#c.dp_status" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Enumeration type used by all Jetraw library functions to indicate operation status.</p>
+<p><strong>Success:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - Function completed without errors</p></li>
+</ul>
+<p><strong>General Errors:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_memory_error</span></code> - Memory allocation failed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_not_initialized</span></code> - Missing initialization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_error</span></code> - Should usually not happen</p></li>
+</ul>
+<p><strong>License Errors:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_license_error</span></code> - The license key could not be validated</p></li>
+</ul>
+<p><strong>File Errors:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_read_error</span></code> - General error when file cannot be opened or read</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_write_error</span></code> - General error when file cannot be opened or written</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_corrupt</span></code> - File does not contain expected data</p></li>
+</ul>
+<p><strong>Parameter Errors:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_identifier</span></code> - No parameters exist for given identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_parameter_error</span></code> - Parameters cannot be used in given context</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_image_too_small</span></code> - Image has too few pixels for reliable preparation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_out_of_range</span></code> - Parameter is out of range</p></li>
+</ul>
+<p><strong>TIFF-Specific Errors:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_file_cannot_open</span></code> - TIFF file cannot be opened (e.g., file does not exist or is locked)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_not_initialized</span></code> - Trying to use a TIFF file handle that was not properly opened or was already closed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_handle_in_use</span></code> - Trying to open a TIFF file with a <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code> pointer that is still in use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_file_update_error</span></code> - Could not update TIFF file (libtiff error)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_wrong_file_mode</span></code> - Only “w” and “r” modes are accepted to open TIFF files</p></li>
+</ul>
+<p><strong>Image Errors:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_bad_image</span></code> - The image data is invalid or not compatible with Jetraw compression</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_cfa</span></code> - No CFA enum exists with the given string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_bad_checksum</span></code> - A checksum could not be verified</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="dp-status-description">
+<h3>dp_status_description<a class="headerlink" href="#dp-status-description" title="Link to this heading">¶</a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dp_status_description">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">dp_status_description</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="n"><span class="pre">status</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dp_status_description" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Returns a human-readable description of the given status code.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code> - The status code to get a description for</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>A null-terminated string describing the status code. This string should not be freed by the caller.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="dpcore-api">
+<h2>DPCore API<a class="headerlink" href="#dpcore-api" title="Link to this heading">¶</a></h2>
+<p>The DPCore library provides functions for preparing raw images before compression. Image
+preparation requires calibration parameters specific to the camera sensor used to capture
+the images.</p>
+<section id="initialization-and-configuration">
+<h3>Initialization and Configuration<a class="headerlink" href="#initialization-and-configuration" title="Link to this heading">¶</a></h3>
+<section id="dpcore-init">
+<h4>dpcore_init<a class="headerlink" href="#dpcore-init" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_init">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_init" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Try to load noise parameter files from default locations.</p>
+<p>Default locations are the current working directory, as well as an OS-dependent user
+data directory:</p>
+<ul class="simple">
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">%APPDATA%\dpcore</span></code></p></li>
+<li><p>macOS: <code class="docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/dpcore</span></code></p></li>
+<li><p>Linux: <code class="docutils literal notranslate"><span class="pre">~/.config/dpcore</span></code></p></li>
+</ul>
+<p>Parameter files are expected to have the extension <code class="docutils literal notranslate"><span class="pre">.dat</span></code>.</p>
+<p><strong>Returns:</strong></p>
+<p>The number of parameter files loaded.</p>
+</dd></dl>
+
+</section>
+<section id="dpcore-set-loglevel">
+<h4>dpcore_set_loglevel<a class="headerlink" href="#dpcore-set-loglevel" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_set_loglevel">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_set_loglevel</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">level</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_set_loglevel" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Set logging verbosity. By default, log output is sent to stdout. It can be redirected
+to a file by calling <code class="docutils literal notranslate"><span class="pre">dpcore_set_logfile</span></code>.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">level</span></code> - Logging level: 0=Off, 1=Informational, 2=Debugging</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="dpcore-set-logfile">
+<h4>dpcore_set_logfile<a class="headerlink" href="#dpcore-set-logfile" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_set_logfile">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_set_logfile</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CHARTYPE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">file_path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_set_logfile" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Write log output to file instead of to stdout. The log output will be written to the
+end of the file, i.e., the file is not overwritten.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code> - Path to the log file</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if all goes well</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_write_error</span></code> - on failure</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="parameter-loading">
+<h3>Parameter Loading<a class="headerlink" href="#parameter-loading" title="Link to this heading">¶</a></h3>
+<section id="dpcore-load-parameters">
+<h4>dpcore_load_parameters<a class="headerlink" href="#dpcore-load-parameters" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_load_parameters">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_load_parameters</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CHARTYPE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">file_path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_load_parameters" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Manually load noise parameters from a file.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code> - Path to the calibration parameter file (<code class="docutils literal notranslate"><span class="pre">.dat</span></code> file)</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if parameters were successfully retrieved</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_read_error</span></code> - if the file could not be opened or read</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_corrupt</span></code> - if the file could not be parsed</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="image-preparation">
+<h3>Image Preparation<a class="headerlink" href="#image-preparation" title="Link to this heading">¶</a></h3>
+<section id="dpcore-prepare-image">
+<h4>dpcore_prepare_image<a class="headerlink" href="#dpcore-prepare-image" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_prepare_image">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_prepare_image</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">imgbuf</span></span>, <span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n"><span class="pre">imgsize</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">identifier</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">error_bound</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_prepare_image" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Prepare an image for efficient lossless compression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An image that already was prepared will not be modified a second time. Still,
+the function will return <code class="docutils literal notranslate"><span class="pre">dp_success</span></code>.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">imgbuf</span></code> - Contains the pixel values that will be overwritten by the preparation procedure</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imgsize</span></code> - Number of pixels in the image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code> - Used to look up preparation parameters (calibration identifier)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error_bound</span></code> - Maximum pixel modification in units of standard deviations (default: 1.0)</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the image data was prepared now or previously</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_identifier</span></code> - if no parameters could be found for the given identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_memory_error</span></code> - if not enough memory could be allocated for the preparation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_image_too_small</span></code> - if there are not enough pixels for reliable preparation</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="dpcore-embed-meta">
+<h4>dpcore_embed_meta<a class="headerlink" href="#dpcore-embed-meta" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_embed_meta">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_embed_meta</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">imgbuf</span></span>, <span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n"><span class="pre">imgsize</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">identifier</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">error_bound</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_embed_meta" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Prepare an image for efficient lossless compression, but instead of performing the
+full noise replacement, only the metadata is embedded. This can be useful in
+situations where the image data is going to be compressed immediately and avoids
+redundant quantization/de-quantization.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An image that already was prepared will not be modified a second time. Still,
+the function will return <code class="docutils literal notranslate"><span class="pre">dp_success</span></code>.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">imgbuf</span></code> - Contains the pixel values that will be overwritten by the preparation procedure</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imgsize</span></code> - Number of pixels in the image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code> - Used to look up preparation parameters (calibration identifier)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error_bound</span></code> - Maximum pixel modification in units of standard deviations (default: 1.0)</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the image data was prepared now or previously</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_identifier</span></code> - if no parameters could be found for the given identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_memory_error</span></code> - if not enough memory could be allocated for the preparation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_image_too_small</span></code> - if there are not enough pixels for reliable preparation</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="identifier-management">
+<h3>Identifier Management<a class="headerlink" href="#identifier-management" title="Link to this heading">¶</a></h3>
+<section id="dpcore-identifier-count">
+<h4>dpcore_identifier_count<a class="headerlink" href="#dpcore-identifier-count" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_identifier_count">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_identifier_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_identifier_count" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Return the number of registered camera identifiers.</p>
+<p><strong>Returns:</strong></p>
+<p>The number of registered camera identifiers.</p>
+</dd></dl>
+
+</section>
+<section id="dpcore-get-identifiers">
+<h4>dpcore_get_identifiers<a class="headerlink" href="#dpcore-get-identifiers" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.dpcore_get_identifiers">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dpcore_get_identifiers</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">buf</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">bufsize</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.dpcore_get_identifiers" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Write list of camera identifiers to preallocated buffer.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">buf</span></code> - Output buffer. Cannot be null. When the function succeeds, the buffer contains a sequential list of null-terminated identifiers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufsize</span></code> - Pointer to the size of buf (in bytes). When the function returns, error or not, the pointee will contain the total number of bytes needed for all identifiers, including null-terminators. Hence, calling the function with <code class="docutils literal notranslate"><span class="pre">*bufsize</span> <span class="pre">=</span> <span class="pre">0</span></code> allows to determine the required size of buf</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if all went well</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_parameter_error</span></code> - if bufsize is null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_memory_error</span></code> - if buffer is too small or buf is null</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+</section>
+<section id="jetraw-api">
+<h2>Jetraw API<a class="headerlink" href="#jetraw-api" title="Link to this heading">¶</a></h2>
+<p>The Jetraw library provides core compression and decompression functions for prepared
+images.</p>
+<section id="compression-functions">
+<h3>Compression Functions<a class="headerlink" href="#compression-functions" title="Link to this heading">¶</a></h3>
+<section id="jetraw-encode">
+<h4>jetraw_encode<a class="headerlink" href="#jetraw-encode" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_encode">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_encode</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pImgBuffer</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">imgWidth</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">imgHeight</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDstBuffer</span></span>, <span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDstLen</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_encode" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Compresses the passed image.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pImgBuffer</span></code> - Points to the pixel data of the image that should be compressed. Pointer must not be null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imgWidth</span></code> - Width of the image in pixels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imgHeight</span></code> - Height of the image in pixels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pDstBuffer</span></code> - Pointer to output buffer. Must not be null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pDstLen</span></code> - Points to maximum number of bytes that can be written to <code class="docutils literal notranslate"><span class="pre">pDstBuffer</span></code>. Rule of thumb: at least half the size of the uncompressed data. If the compression succeeds, the number of actual bytes is written here. Must not be null</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if successful</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_not_initialized</span></code> - if the image data is not suitable for Jetraw compression</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_parameter_error</span></code> - if one of the pointers is null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_license_error</span></code> - if no valid license was found</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_identifier</span></code> - if a bad combination of flags was provided</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_memory_error</span></code> - if memory allocation failed</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="decompression-functions">
+<h3>Decompression Functions<a class="headerlink" href="#decompression-functions" title="Link to this heading">¶</a></h3>
+<section id="jetraw-decode">
+<h4>jetraw_decode<a class="headerlink" href="#jetraw-decode" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_decode">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_decode</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrcBuffer</span></span>, <span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n"><span class="pre">srcLen</span></span>, <span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pImgBuffer</span></span>, <span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n"><span class="pre">imgPixels</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_decode" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Decompresses the passed image.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pSrcBuffer</span></code> - Points to the bytes of the compressed image data. Must not be null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">srcLen</span></code> - Size of compressed data in bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pImgBuffer</span></code> - Points to the output buffer. Must not be null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imgPixels</span></code> - The maximum number of pixels that can be written to <code class="docutils literal notranslate"><span class="pre">pImgBuffer</span></code></p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if successful</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_parameter_error</span></code> - if one of the pointers is null</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_image_too_small</span></code> - if <code class="docutils literal notranslate"><span class="pre">imgPixels</span></code> is smaller than the pixels of the compressed image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_memory_error</span></code> - if memory allocation failed</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="version-information">
+<h3>Version Information<a class="headerlink" href="#version-information" title="Link to this heading">¶</a></h3>
+<section id="jetraw-version">
+<h4>jetraw_version<a class="headerlink" href="#jetraw-version" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_version">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_version</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_version" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Returns the current Jetraw version.</p>
+<p><strong>Returns:</strong></p>
+<p>A null-terminated string containing the version information. This string should not be freed by the caller.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+<section id="jetraw-tiff-api">
+<h2>Jetraw TIFF API<a class="headerlink" href="#jetraw-tiff-api" title="Link to this heading">¶</a></h2>
+<p>The Jetraw TIFF library provides a convenience API for working with TIFF files that use
+Jetraw compression. It handles file I/O and multi-page TIFF files automatically.</p>
+<section id="id1">
+<h3>Initialization and Configuration<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<section id="jetraw-tiff-init">
+<h4>jetraw_tiff_init<a class="headerlink" href="#jetraw-tiff-init" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_init">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_init" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Registers Jetraw compression for libtiff. This function must be called before using
+any other Jetraw TIFF functions.</p>
+<p><strong>Returns:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dp_status</span></code> indicating success or failure</p>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-set-loglevel">
+<h4>jetraw_tiff_set_loglevel<a class="headerlink" href="#jetraw-tiff-set-loglevel" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_set_loglevel">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_set_loglevel</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">level</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_set_loglevel" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Set logging verbosity. By default, log output is sent to stdout. It can be redirected
+to a file by calling <code class="docutils literal notranslate"><span class="pre">jetraw_tiff_set_logfile</span></code>.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">level</span></code> - Logging level: 0=Off, 1=Informational, 2=Debugging</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-set-logfile">
+<h4>jetraw_tiff_set_logfile<a class="headerlink" href="#jetraw-tiff-set-logfile" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_set_logfile">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_set_logfile</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CHARTYPE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">file_path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_set_logfile" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Write log output to file instead of to stdout. The log output will be written to the
+end of the file, i.e., the file is not overwritten.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code> - Path to the log file</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if all goes well</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_write_error</span></code> - on failure</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-set-license">
+<h4>jetraw_tiff_set_license<a class="headerlink" href="#jetraw-tiff-set-license" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_set_license">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_set_license</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_set_license" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Sets the license key to be used.</p>
+<p>If the key is set to an empty string, Jetraw will look for the license key in a file
+<code class="docutils literal notranslate"><span class="pre">license.txt</span></code>, which should be placed in the following directory:</p>
+<ul class="simple">
+<li><p>macOS: <code class="docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/jetraw</span></code></p></li>
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">%APPDATA%\jetraw</span></code></p></li>
+<li><p>Linux: <code class="docutils literal notranslate"><span class="pre">~/.config/jetraw</span></code></p></li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code> - License key string, or empty string to use default location</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the license was set successfully</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_license_error</span></code> - if the key could not be validated</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="libtiff-integration">
+<h3>libtiff Integration<a class="headerlink" href="#libtiff-integration" title="Link to this heading">¶</a></h3>
+<section id="tiffinitdotphoton">
+<h4>TIFFInitDotphoton<a class="headerlink" href="#tiffinitdotphoton" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.TIFFInitDotphoton">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TIFFInitDotphoton</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TIFF</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">tif</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">scheme</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.TIFFInitDotphoton" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Initializer for Jetraw codec for use with libtiff. Libraries that link directly with
+libtiff can make use of this function to register the codec.</p>
+<p>This is typically done as follows:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TIFFRegisterCODEC</span><span class="p">(</span><span class="n">COMPRESSION_DOTPHOTON</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dotphoton&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">TIFFInitDotphoton</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TIFFIsCODECConfigured</span><span class="p">(</span><span class="n">COMPRESSION_DOTPHOTON</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">success</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Error: Codec could not be configured.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>All parameters are used internally by libtiff.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tif</span></code> - TIFF file handle (used internally by libtiff)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scheme</span></code> - Compression scheme (used internally by libtiff)</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Integer status code</p>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-register-libtiff-with-name">
+<h4>jetraw_tiff_register_libtiff_with_name<a class="headerlink" href="#jetraw-tiff-register-libtiff-with-name" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_register_libtiff_with_name">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_register_libtiff_with_name</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">libname</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_register_libtiff_with_name" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Register Jetraw codec with libtiff. This function is intended for use with
+applications that rely indirectly on libtiff, i.e., where the libtiff dynamic library
+was loaded into memory through a dependency, as is the case, e.g., for some Python
+modules.</p>
+<p>The function looks in memory for a library with the given name and checks if the
+library contains functions <code class="docutils literal notranslate"><span class="pre">TIFFGetVersion</span></code>, <code class="docutils literal notranslate"><span class="pre">TIFFRegisterCodec</span></code> and
+<code class="docutils literal notranslate"><span class="pre">TIFFIsCODECConfigured</span></code> and uses those functions to register the codec, after which
+Jetraw-compressed TIFF files can be opened transparently.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">libname</span></code> - The name of the library that exposes the necessary functions of libtiff</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the registration is successful</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_not_initialized</span></code> - if the given library cannot be found in memory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_identifier</span></code> - if the library in memory does not expose the required functions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_parameter_error</span></code> - if the library in memory has an incompatible version</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_unknown_error</span></code> - if the codec could not be registered, i.e., <code class="docutils literal notranslate"><span class="pre">TIFFIsCODECRegistered</span></code> returns false</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-register-libtiff">
+<h4>jetraw_tiff_register_libtiff<a class="headerlink" href="#jetraw-tiff-register-libtiff" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_register_libtiff">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_register_libtiff</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_register_libtiff" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Convenience function for registering with standard libtiff libraries. Calls
+<code class="docutils literal notranslate"><span class="pre">jetraw_tiff_register_libtiff_with_name()</span></code> with arguments <code class="docutils literal notranslate"><span class="pre">&quot;tiff&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;libtiff&quot;</span></code>.</p>
+<p><strong>Returns:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dp_status</span></code> indicating success or failure</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="file-operations">
+<h3>File Operations<a class="headerlink" href="#file-operations" title="Link to this heading">¶</a></h3>
+<section id="jetraw-tiff-open">
+<h4>jetraw_tiff_open<a class="headerlink" href="#jetraw-tiff-open" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_open">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CHARTYPE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">tiff_path</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">aoi_width</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">aoi_height</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">tiff_description</span></span>, <span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_open" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Open a TIFF file for reading or writing.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If a file already exists at the given path, it will be overwritten and replaced
+with an empty file containing only the description.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tiff_path</span></code> - The path of the file to be opened</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aoi_width</span></code> - Width of the image data that is going to be written to the file. It is assumed that all the image data in a multi-page TIFF will have the same dimensions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aoi_height</span></code> - Height of the image data that is going to be written to the file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tiff_description</span></code> - Description of the file. This goes unmodified into the corresponding TIFF file tag</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - A handle to the file if successfully opened (output parameter)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code> - TIFF opening mode. Only “w” (write) and “r” (read) are accepted</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if all goes well</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_handle_in_use</span></code> - if the <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code> object provided represents an open file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_file_cannot_open</span></code> - if the file cannot be opened for writing (invalid path, file locked…)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_file_update_error</span></code> - if the description tag of the file cannot be set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_license_error</span></code> - if the license could not be validated, and compression is disabled</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_wrong_file_mode</span></code> - if open mode is different than “w” and “r”</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-close">
+<h4>jetraw_tiff_close<a class="headerlink" href="#jetraw-tiff-close" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_close">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_close</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_close" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Closes a TIFF file and frees the file handle.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once a file has been closed, no further images can be appended to it through
+this API.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - Handle of the file to be closed. Will be set to <code class="docutils literal notranslate"><span class="pre">null</span></code> upon success</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the file was closed successfully (and all data written to disk)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_not_initialized</span></code> - if <code class="docutils literal notranslate"><span class="pre">handle</span></code> does not represent an open file</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="page-operations">
+<h3>Page Operations<a class="headerlink" href="#page-operations" title="Link to this heading">¶</a></h3>
+<section id="jetraw-tiff-append">
+<h4>jetraw_tiff_append<a class="headerlink" href="#jetraw-tiff-append" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_append">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_append</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">img_buffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_append" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Compresses an image and appends it as a new image/page to an open TIFF file.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - Handle of the file to which the image is to be appended</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_buffer</span></code> - Buffer that holds the uncompressed image data. Must be of the dimensions supplied to <code class="docutils literal notranslate"><span class="pre">jetraw_tiff_open()</span></code> when <code class="docutils literal notranslate"><span class="pre">handle</span></code> was obtained</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the image was successfully compressed and appended to the file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_not_initialized</span></code> - if <code class="docutils literal notranslate"><span class="pre">handle</span></code> does not represent an open TIFF file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_params_not_loaded</span></code> - if compression parameters are not loaded</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_file_update_error</span></code> - if the new page could not be appended to the file</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-read-page">
+<h4>jetraw_tiff_read_page<a class="headerlink" href="#jetraw-tiff-read-page" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_read_page">
+<a class="reference internal" href="#c.dp_status" title="dp_status"><span class="n"><span class="pre">dp_status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_read_page</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">img_buffer</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">page</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_read_page" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Reads a TIFF compressed page image and saves the uncompressed page to <code class="docutils literal notranslate"><span class="pre">img_buffer</span></code>.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - Handle of the file from which the image is to be read</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_buffer</span></code> - Buffer that will be used to save the uncompressed image data. Must be of the dimensions supplied to <code class="docutils literal notranslate"><span class="pre">jetraw_tiff_open()</span></code> when <code class="docutils literal notranslate"><span class="pre">handle</span></code> was obtained</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page</span></code> - Indicates the index of the page to be read (0-based)</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_success</span></code> - if the image was successfully read and decompressed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_tiff_not_initialized</span></code> - if <code class="docutils literal notranslate"><span class="pre">handle</span></code> does not represent an open TIFF file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_file_read_error</span></code> - if TIFF page is not compressed, reading is not possible, or there is a problem with <code class="docutils literal notranslate"><span class="pre">TIFFReadEncodedStrip</span></code></p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="metadata-functions">
+<h3>Metadata Functions<a class="headerlink" href="#metadata-functions" title="Link to this heading">¶</a></h3>
+<section id="jetraw-tiff-get-width">
+<h4>jetraw_tiff_get_width<a class="headerlink" href="#jetraw-tiff-get-width" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_get_width">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_get_width</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_get_width" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Gets width value from <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code> struct and returns it.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - Handle of the TIFF file</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>If handle exists and magic number is correct, the image width is returned.</p>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-get-height">
+<h4>jetraw_tiff_get_height<a class="headerlink" href="#jetraw-tiff-get-height" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_get_height">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_get_height</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_get_height" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Gets height value from <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code> struct and returns it.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - Handle of the TIFF file</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>If handle exists and magic number is correct, the image height is returned.</p>
+</dd></dl>
+
+</section>
+<section id="jetraw-tiff-get-pages">
+<h4>jetraw_tiff_get_pages<a class="headerlink" href="#jetraw-tiff-get-pages" title="Link to this heading">¶</a></h4>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jetraw_tiff_get_pages">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jetraw_tiff_get_pages</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dp_tiff</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jetraw_tiff_get_pages" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Gets number of pages value from <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code> struct and returns it.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handle</span></code> - Handle of the TIFF file</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>If handle exists and magic number is correct, the image number of pages is returned.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="cli.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Command Line Interface</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="getting_started.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Getting started</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025 Dotphoton AG. All rights reserved.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="#" aria-label="Last update">Last update on 2026-07-09</a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">C API Reference</a><ul>
+<li><a class="reference internal" href="#common-types">Common Types</a><ul>
+<li><a class="reference internal" href="#dp-status">dp_status</a></li>
+<li><a class="reference internal" href="#dp-status-description">dp_status_description</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dpcore-api">DPCore API</a><ul>
+<li><a class="reference internal" href="#initialization-and-configuration">Initialization and Configuration</a><ul>
+<li><a class="reference internal" href="#dpcore-init">dpcore_init</a></li>
+<li><a class="reference internal" href="#dpcore-set-loglevel">dpcore_set_loglevel</a></li>
+<li><a class="reference internal" href="#dpcore-set-logfile">dpcore_set_logfile</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#parameter-loading">Parameter Loading</a><ul>
+<li><a class="reference internal" href="#dpcore-load-parameters">dpcore_load_parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-preparation">Image Preparation</a><ul>
+<li><a class="reference internal" href="#dpcore-prepare-image">dpcore_prepare_image</a></li>
+<li><a class="reference internal" href="#dpcore-embed-meta">dpcore_embed_meta</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#identifier-management">Identifier Management</a><ul>
+<li><a class="reference internal" href="#dpcore-identifier-count">dpcore_identifier_count</a></li>
+<li><a class="reference internal" href="#dpcore-get-identifiers">dpcore_get_identifiers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jetraw-api">Jetraw API</a><ul>
+<li><a class="reference internal" href="#compression-functions">Compression Functions</a><ul>
+<li><a class="reference internal" href="#jetraw-encode">jetraw_encode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#decompression-functions">Decompression Functions</a><ul>
+<li><a class="reference internal" href="#jetraw-decode">jetraw_decode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#version-information">Version Information</a><ul>
+<li><a class="reference internal" href="#jetraw-version">jetraw_version</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jetraw-tiff-api">Jetraw TIFF API</a><ul>
+<li><a class="reference internal" href="#id1">Initialization and Configuration</a><ul>
+<li><a class="reference internal" href="#jetraw-tiff-init">jetraw_tiff_init</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-set-loglevel">jetraw_tiff_set_loglevel</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-set-logfile">jetraw_tiff_set_logfile</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-set-license">jetraw_tiff_set_license</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#libtiff-integration">libtiff Integration</a><ul>
+<li><a class="reference internal" href="#tiffinitdotphoton">TIFFInitDotphoton</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-register-libtiff-with-name">jetraw_tiff_register_libtiff_with_name</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-register-libtiff">jetraw_tiff_register_libtiff</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file-operations">File Operations</a><ul>
+<li><a class="reference internal" href="#jetraw-tiff-open">jetraw_tiff_open</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-close">jetraw_tiff_close</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#page-operations">Page Operations</a><ul>
+<li><a class="reference internal" href="#jetraw-tiff-append">jetraw_tiff_append</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-read-page">jetraw_tiff_read_page</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metadata-functions">Metadata Functions</a><ul>
+<li><a class="reference internal" href="#jetraw-tiff-get-width">jetraw_tiff_get_width</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-get-height">jetraw_tiff_get_height</a></li>
+<li><a class="reference internal" href="#jetraw-tiff-get-pages">jetraw_tiff_get_pages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/theme-detection.js?v=03e06ebd"></script>
+    <script src="../../_static/custom.js?v=52a216f4"></script>
+    </body>
+</html>

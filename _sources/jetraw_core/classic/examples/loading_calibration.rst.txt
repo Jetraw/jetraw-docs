@@ -1,0 +1,50 @@
+Loading Calibration Parameters
+================================
+
+This example demonstrates how to load camera calibration parameters required for image
+preparation.
+
+Before preparing images, you must load the calibration file (``.dat`` file) that
+contains camera-specific parameters. These parameters are used during image preparation
+to perform noise replacement.
+
+Example
+-------
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/dp_status.h"
+   #include <iostream>
+
+   int main() {
+       // Load calibration parameters from a file
+       dp_status status = dpcore_load_parameters("./calibration.dat");
+
+       if (status != dp_success) {
+           std::cerr << "Failed to load calibration file: "
+                     << dp_status_description(status) << '\n';
+           return 1;
+       }
+
+       // Calibration parameters are now loaded and ready to use
+       // ... rest of your code ...
+   }
+
+Notes
+-----
+
+- The calibration file path can be provided via command-line arguments rather than
+  hardcoding it in your program.
+- If you don't have a calibration file, you can find example files at:
+  `https://github.com/jetraw/pydpcore/blob/master/pco_3a2dd3a.dat <https://github.com/jetraw/pydpcore/blob/master/pco_3a2dd3a.dat>`_
+- You can also use ``dpcore_init()`` to load parameters from default locations. See
+  :c:func:`dpcore_init` for details.
+
+See Also
+--------
+
+- :c:func:`dpcore_load_parameters`
+- :c:func:`dpcore_init`
+- :doc:`../c_libraries` for complete API reference
+

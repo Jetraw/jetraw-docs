@@ -1,0 +1,29 @@
+Jetraw
+======
+
+Jetraw is the full-featured distribution of Jetraw Core. It provides:
+
+- Command line applications (``dpcore`` and ``jetraw``) for preparing,
+  compressing and decompressing images
+- The Jetraw UI, a graphical application for Windows and macOS
+- Development libraries with a C API: DPCore (image preparation), Jetraw
+  (compression/decompression) and Jetraw TIFF (convenient TIFF file support)
+
+Licensing and sensor calibration are configured through a license file and
+``.dat`` calibration files installed on the system; see :doc:`installation`.
+
+If you need a minimal library for integration in constrained environments,
+have a look at :doc:`Jetraw Standalone <../standalone/index>` instead.
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   getting_started
+   c_libraries
+   cli
+   jetraw_ui
+   examples/index

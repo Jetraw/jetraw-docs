@@ -29,22 +29,76 @@ typically contains all the information needed to prepare images from a given
 camera model (e.g. Leica M11) under all its settings. Once images are prepared,
 they can be losslessly compressed/decompressed.
 
-Jetraw Core is the implementation of the Jetraw image compression algorithm, and
-comes as a Command Line Interface, a shared library, a GUI and a VHDL
-implementation, for deployment to an FPGA.
+Two distributions
+-----------------
+
+Jetraw Core is available as two software distributions, complemented by a VHDL
+implementation for deployment to an FPGA. Both distributions are delivered by
+Dotphoton on request; which one fits best depends on your use case.
+
+- **Jetraw** is the full-featured distribution: command line applications
+  (``dpcore`` and ``jetraw``), the Jetraw UI graphical application, and
+  development libraries including convenient TIFF file support. Licensing and
+  sensor calibration are configured through files installed on the system.
+
+- **Jetraw Standalone** is a slim build for integration in constrained
+  environments: a single shared library and header, providing raw pixel-buffer
+  functions only. Everything — including licensing and sensor calibration —
+  can be configured through the API, so it can even be used on systems without
+  filesystem access.
+
+.. list-table:: Choosing a distribution
+   :header-rows: 1
+   :widths: 50 25 25
+
+   * -
+     - Jetraw
+     - Jetraw Standalone
+   * - Command line applications (``dpcore``, ``jetraw``)
+     - ✓
+     - —
+   * - Graphical application (Jetraw UI)
+     - ✓ (Windows, macOS)
+     - —
+   * - Raw pixel-buffer C API
+     - ✓
+     - ✓
+   * - TIFF read/write C API
+     - ✓
+     - —
+   * - License and calibration from files
+     - ✓
+     - ✓
+   * - License and calibration through the API
+     - —
+     - ✓
+   * - Delivery
+     - Installer (Windows, macOS), archive (Linux)
+     - Archive with a single library and header
 
 Contents
 --------
-   
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Overview
+
+   workflow_overview
+
 .. toctree::
    :maxdepth: 2
-   :caption: Explore our documentation:
+   :caption: Jetraw
 
-   installation
-   workflow_overview
-   getting_started
-   c_libraries
-   cli
-   jetraw_ui
-   examples/index
+   classic/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Jetraw Standalone
+
+   standalone/index
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Hardware implementation
+
    fpga

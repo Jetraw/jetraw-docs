@@ -1,0 +1,108 @@
+Jetraw Standalone
+=================
+
+Jetraw Standalone is a single, self-contained shared library
+(``libjetraw_standalone.so`` on Linux, ``jetraw_standalone.dll`` on Windows,
+``libjetraw_standalone.dylib`` on macOS) that bundles image preparation and
+Jetraw compression/decompression behind one header, ``jetraw_standalone.h``.
+It is a slim alternative to the :doc:`Jetraw distribution <../classic/index>`,
+aimed at integration in constrained environments.
+
+Compared to Jetraw, the standalone library differs in the following ways:
+
+- **Single library, single header**: no separate DPCore and Jetraw libraries
+  to link against.
+- **Raw pixel buffers only**: the library operates on 16-bit pixel buffers in
+  memory. There is no TIFF API, and no CLI applications or GUI are included.
+- **API-level configuration**: sensor calibration parameters (following the
+  EMVA 1288 standard) can be registered directly in code, and the license can
+  be set from memory — the library can be used even on systems without
+  filesystem access.
+- **Additional capabilities**: reading image dimensions and sensor parameters
+  directly from a compressed buffer, and managing offline license data in
+  memory.
+
+Installation
+------------
+
+The Jetraw Standalone archive contains only two directories:
+
+- ``include/`` - the ``jetraw_standalone.h`` public header
+- ``lib/`` - the shared library
+
+There is no installer; add the ``include`` directory to your compiler's include
+paths and link against the library. Archives are available for Linux, Windows
+and macOS on request.
+
+Configuration
+-------------
+
+Jetraw Standalone needs two pieces of configuration: a valid **license** and
+sensor **calibration** parameters. The two are independent, and each can be
+provided either from files on disk or directly through the API — in any
+combination. For example, a system may keep ``license.txt`` in the standard
+location while registering calibration profiles programmatically.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 16 42 42
+
+   * -
+     - From files
+     - Through the API
+   * - License
+     - ``license.txt`` (and, for offline licenses, a ``.lic`` file) in the
+       standard OS-specific location
+     - ``jetraw_set_license_key()``, ``jetraw_set_license_data()``
+   * - Calibration
+     - ``.dat`` files loaded with ``dpcore_init()`` or
+       ``dpcore_load_parameters()``
+     - ``dpcore_set_emva_parameters()``
+
+When both the license and the calibration parameters are provided through the
+API, no filesystem access is required at all. The standard file locations are
+the same as for the Jetraw distribution; see
+:doc:`Installation <../classic/installation>`.
+
+Quick start
+-----------
+
+The following example configures the library entirely in code and performs a
+compression round trip. The example code does not check for status codes or
+allocate memory buffers; see the :doc:`examples <examples/index>` for complete
+programs.
+
+.. code-block:: cpp
+
+    #include "jetraw_standalone.h"
+
+    // Set the license key directly (no license.txt required)
+    jetraw_set_license_key("XXXX-XXXX-XXXX-XXXX");
+
+    // Register sensor parameters (no .dat calibration file required)
+    JetrawEMVAParameters params;
+    params.gain = 0.45f;          // system gain in DN/e-
+    params.black_level = 100.0f;  // black level in DN
+    params.readout_noise = 1.6f;  // temporal dark noise in DN RMS
+    params.pixel_max = 65535;     // saturation value in DN
+    params.cfa = kMono;           // monochrome sensor
+    dpcore_set_emva_parameters(&params, "my-camera");
+
+    // Prepare the image in-place using the registered identifier
+    dpcore_prepare_image(image_buffer, image_width * image_height, "my-camera");
+
+    // Compress
+    int32_t compressed_size = compressed_capacity;
+    jetraw_encode(image_buffer, image_width, image_height, compressed_buffer, &compressed_size);
+
+    // Decompress
+    jetraw_decode(compressed_buffer, compressed_size, decompressed_image, image_width * image_height);
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   api_reference
+   examples/index
